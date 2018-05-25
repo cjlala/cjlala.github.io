@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="Data Structure," />
 
 
 
@@ -79,17 +79,20 @@
 
 
 
-<meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta name="description" content="Lec 2Java : 编译过程 运行java程序一般要经过两个步骤: 编译和解释 为什么需要生成一个class文件先？ .class文件会事先检查有没有type error(safer) .class文件更利于机器的运行(faster) 不需要将源代码给出去    Java: 类的定义以及实例 每个函数都是在某个类里面的 要想运行某个类，必须声明main函数；但是并非所有类都是有main函数的">
+<meta name="keywords" content="Data Structure">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
-<meta property="og:url" content="http://yoursite.com/2018/05/24/hello-world/index.html">
+<meta property="og:title" content="CS61B-2">
+<meta property="og:url" content="http://yoursite.com/2018/05/25/CS61B-2/index.html">
 <meta property="og:site_name" content="CJ&#39;s Blog">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta property="og:description" content="Lec 2Java : 编译过程 运行java程序一般要经过两个步骤: 编译和解释 为什么需要生成一个class文件先？ .class文件会事先检查有没有type error(safer) .class文件更利于机器的运行(faster) 不需要将源代码给出去    Java: 类的定义以及实例 每个函数都是在某个类里面的 要想运行某个类，必须声明main函数；但是并非所有类都是有main函数的">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-05-24T11:25:52.759Z">
+<meta property="og:image" content="http://yoursite.com/2018/05/25/CS61B-2/java%20compilation.png">
+<meta property="og:updated_time" content="2018-05-25T04:50:31.565Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hello World">
-<meta name="twitter:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta name="twitter:title" content="CS61B-2">
+<meta name="twitter:description" content="Lec 2Java : 编译过程 运行java程序一般要经过两个步骤: 编译和解释 为什么需要生成一个class文件先？ .class文件会事先检查有没有type error(safer) .class文件更利于机器的运行(faster) 不需要将源代码给出去    Java: 类的定义以及实例 每个函数都是在某个类里面的 要想运行某个类，必须声明main函数；但是并非所有类都是有main函数的">
+<meta name="twitter:image" content="http://yoursite.com/2018/05/25/CS61B-2/java%20compilation.png">
 
 
 
@@ -119,13 +122,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/05/24/hello-world/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/05/25/CS61B-2/"/>
 
 
 
 
 
-  <title>Hello World | CJ's Blog</title>
+  <title>CS61B-2 | CJ's Blog</title>
   
 
 
@@ -252,7 +255,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/24/hello-world/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/25/CS61B-2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="CJ">
@@ -269,7 +272,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Hello World</h1>
+          <h1 class="post-title" itemprop="name headline">CS61B-2</h1>
         
 
         <div class="post-meta">
@@ -281,8 +284,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-24T19:25:52+08:00">
-                2018-05-24
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-25T09:13:20+08:00">
+                2018-05-25
               </time>
             
 
@@ -319,15 +322,38 @@
       
 
       
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+        <h2 id="Lec-2"><a href="#Lec-2" class="headerlink" title="Lec 2"></a>Lec 2</h2><h4 id="Java-编译过程"><a href="#Java-编译过程" class="headerlink" title="Java : 编译过程"></a>Java : 编译过程</h4><ul>
+<li>运行java程序<strong>一般</strong>要经过两个步骤: 编译和解释<img src="/2018/05/25/CS61B-2/java compilation.png" alt="java compilation"></li>
+<li>为什么需要生成一个class文件先？<ul>
+<li>.class文件会事先检查有没有type error(safer)</li>
+<li>.class文件更利于机器的运行(faster)</li>
+<li>不需要将源代码给出去</li>
+</ul>
+</li>
+</ul>
+<h4 id="Java-类的定义以及实例"><a href="#Java-类的定义以及实例" class="headerlink" title="Java: 类的定义以及实例"></a>Java: 类的定义以及实例</h4><ul>
+<li>每个函数都是在某个类里面的</li>
+<li>要想运行某个类，必须声明main函数；但是并非所有类都是有main函数的</li>
+<li>如果声明了两个类，只要在同一个文件夹中就可以在任意一个类中调用另一个类</li>
+<li>对象实例化：类不单单只包含函数，还可以包含数据，也就是成员变量。类为实例规划了一个蓝图，对象通过不同的赋值来实例化</li>
+<li><p>类</p>
+<ul>
+<li>成员变量：一系列变量，可以有任意多。变量可以是单变量，也可以是数据结构</li>
+<li>构造函数：类似一个函数，但是不是函数。作用是决定如何实例化一个类，比如如何初始化各种成员变量。也就是说构造函数是不要指定返回类型的</li>
+<li>非静态函数：如果一个函数要是用自身类的成员变量，那么肯定是非静态的</li>
+<li>静态函数：可以直接通过 ClassName.Method() 方式调用的函数。而非静态函数必须先通过 Class Instance的方式来声明一个实例才能通过这个实例来调用。 </li>
+</ul>
+</li>
+<li><p>对象可以存储在数组中</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Dog[] dogs = <span class="keyword">new</span> Dog[<span class="number">2</span>]; <span class="comment">//声明两个Dog类的空间</span></span><br><span class="line">dogs[<span class="number">0</span>] = <span class="keyword">new</span> Dog(<span class="number">8</span>); <span class="comment">//给第一个对象实例化</span></span><br><span class="line">dogs[<span class="number">1</span>] = <span class="keyword">new</span> Dog(<span class="number">20</span>);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>为什么要使用静态函数？</p>
+<p>当我们不需要有类内成员变量存储，而只需要进行值的返回之类的操作的使用就可以使用静态函数。能够帮助我们省略了创建类的实例的过程。比如<code>x=Math.max(1,2)</code>比<code>Math m = new Math(); x=m.max(1,2)</code>要简略的多</p>
+</li>
+</ul>
+<h4 id="Java-String-args的使用"><a href="#Java-String-args的使用" class="headerlink" title="Java : String[] args的使用"></a>Java : String[] args的使用</h4><p>当我们在终端通过java命令来解释.class文件，执行程序的时候。可以在 java 文件名 ***，星号处输入想要输入的字符，通过空格进行划分。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ArgsDemo</span> </span>&#123;</span><br><span class="line">	<span class="comment">/** Prints out the 0th command line argument. */</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    	System.out.println(args[<span class="number">0</span>]);</span><br><span class="line">        System.out.println(args[<span class="number">2</span>]);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">command: java ArgsDemo hello some args</span><br><span class="line">output: hello args</span><br></pre></td></tr></table></figure>
+<p>将String类型字符串转换成int类型数字的函数<code>Integer.parseInt(string)</code></p>
 
       
     </div>
@@ -343,6 +369,12 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/Data-Structure/" rel="tag"># Data Structure</a>
+          
+        </div>
+      
 
       
       
@@ -352,15 +384,15 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2018/05/25/CS61B-1/" rel="next" title="CS61B-1">
+                <i class="fa fa-chevron-left"></i> CS61B-1
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/05/24/First-Blog/" rel="prev" title="First Blog">
-                First Blog <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -487,7 +519,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Quick-Start"><span class="nav-number">1.</span> <span class="nav-text">Quick Start</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Create-a-new-post"><span class="nav-number">1.1.</span> <span class="nav-text">Create a new post</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Run-server"><span class="nav-number">1.2.</span> <span class="nav-text">Run server</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Generate-static-files"><span class="nav-number">1.3.</span> <span class="nav-text">Generate static files</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Deploy-to-remote-sites"><span class="nav-number">1.4.</span> <span class="nav-text">Deploy to remote sites</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Lec-2"><span class="nav-number">1.</span> <span class="nav-text">Lec 2</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Java-编译过程"><span class="nav-number">1.0.1.</span> <span class="nav-text">Java : 编译过程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Java-类的定义以及实例"><span class="nav-number">1.0.2.</span> <span class="nav-text">Java: 类的定义以及实例</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Java-String-args的使用"><span class="nav-number">1.0.3.</span> <span class="nav-text">Java : String[] args的使用</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
