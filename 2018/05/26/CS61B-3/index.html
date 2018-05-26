@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="Data Structure," />
 
 
 
@@ -79,17 +79,20 @@
 
 
 
-<meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta name="description" content="Lec 3Java: 原始类型(primitive type) 我们的计算机在执行的时候，将数据放在内存中运算。数据被表示成0和1的组合 任意不同的Java类型会以不同的方式来解析bits Java有8种原始类型：byte, short, int, long, float, double, boolean, char 当我们声明了一个类型以后，计算机会给这个类型的变量分配固定比特数的空间。比如in">
+<meta name="keywords" content="Data Structure">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
-<meta property="og:url" content="http://yoursite.com/2018/05/24/hello-world/index.html">
+<meta property="og:title" content="CS61B-3">
+<meta property="og:url" content="http://yoursite.com/2018/05/26/CS61B-3/index.html">
 <meta property="og:site_name" content="CJ&#39;s Blog">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta property="og:description" content="Lec 3Java: 原始类型(primitive type) 我们的计算机在执行的时候，将数据放在内存中运算。数据被表示成0和1的组合 任意不同的Java类型会以不同的方式来解析bits Java有8种原始类型：byte, short, int, long, float, double, boolean, char 当我们声明了一个类型以后，计算机会给这个类型的变量分配固定比特数的空间。比如in">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-05-24T11:25:52.759Z">
+<meta property="og:image" content="http://yoursite.com/2018/05/26/CS61B-3/Box_pointer.png">
+<meta property="og:updated_time" content="2018-05-26T12:06:59.238Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hello World">
-<meta name="twitter:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta name="twitter:title" content="CS61B-3">
+<meta name="twitter:description" content="Lec 3Java: 原始类型(primitive type) 我们的计算机在执行的时候，将数据放在内存中运算。数据被表示成0和1的组合 任意不同的Java类型会以不同的方式来解析bits Java有8种原始类型：byte, short, int, long, float, double, boolean, char 当我们声明了一个类型以后，计算机会给这个类型的变量分配固定比特数的空间。比如in">
+<meta name="twitter:image" content="http://yoursite.com/2018/05/26/CS61B-3/Box_pointer.png">
 
 
 
@@ -119,13 +122,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/05/24/hello-world/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/05/26/CS61B-3/"/>
 
 
 
 
 
-  <title>Hello World | CJ's Blog</title>
+  <title>CS61B-3 | CJ's Blog</title>
   
 
 
@@ -242,7 +245,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/24/hello-world/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/26/CS61B-3/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="CJ">
@@ -259,7 +262,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Hello World</h1>
+          <h1 class="post-title" itemprop="name headline">CS61B-3</h1>
         
 
         <div class="post-meta">
@@ -271,8 +274,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-24T19:25:52+08:00">
-                2018-05-24
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-26T20:05:03+08:00">
+                2018-05-26
               </time>
             
 
@@ -309,15 +312,31 @@
       
 
       
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+        <h2 id="Lec-3"><a href="#Lec-3" class="headerlink" title="Lec 3"></a>Lec 3</h2><h4 id="Java-原始类型-primitive-type"><a href="#Java-原始类型-primitive-type" class="headerlink" title="Java: 原始类型(primitive type)"></a>Java: 原始类型(primitive type)</h4><ul>
+<li>我们的计算机在执行的时候，将数据放在内存中运算。数据被表示成0和1的组合</li>
+<li>任意不同的Java类型会以不同的方式来解析bits</li>
+<li>Java有8种原始类型：byte, short, <strong>int</strong>, long, float, <strong>double</strong>, boolean, char</li>
+<li>当我们声明了一个类型以后，计算机会给这个类型的变量分配固定比特数的空间。比如int类型32bits，double类型64bits。一旦分配了空间以后，在没有释放之前都不允许再使用这个空间</li>
+<li>在原始类型中，当我们使用赋值操作时，是将等号右边的比特复制给等号左边的</li>
+</ul>
+<h4 id="Java-引用类型-reference-type"><a href="#Java-引用类型-reference-type" class="headerlink" title="Java: 引用类型(reference type)"></a>Java: 引用类型(reference type)</h4><ul>
+<li>除了上面提到的八种类型以外，其余类型都是引用类型。包括array</li>
+<li>当我们实例化一个对象的时候：<ul>
+<li>Java首先给所有提前定义好的成员变量分配好空间，并且使用一些系统初始值对这些空间进行填充</li>
+<li>然后通过构造函数给成员变量赋特定的值</li>
+</ul>
+</li>
+<li>声明任意一个引用类型变量的时候，Java会为该变量分配一个<strong>64位</strong>的地址。</li>
+</ul>
+<h4 id="Java-Array的实例化"><a href="#Java-Array的实例化" class="headerlink" title="Java: Array的实例化"></a>Java: Array的实例化</h4><ul>
+<li>声明(declaration)：给这个Array分配一个64位地址</li>
+<li>实例化(instantiation)：创建一个对象</li>
+<li>赋值(assignment)：将这个地址指向新的对象，然后我们通过这个地址就可以访问这个对象了</li>
+</ul>
+<h4 id="Review"><a href="#Review" class="headerlink" title="Review:"></a>Review:</h4><h5 id="Box-and-Poiter-Diagram"><a href="#Box-and-Poiter-Diagram" class="headerlink" title="Box and Poiter Diagram"></a>Box and Poiter Diagram</h5><p><img src="/2018/05/26/CS61B-3/Box_pointer.png" alt="Box_pointer"></p>
+<h5 id="Static"><a href="#Static" class="headerlink" title="Static"></a>Static</h5><p>当我们希望类内的某个成员变量是为整个类服务，不是为某个对象服务的时候，我们就使用静态成员变量。静态成员可以直接使用类名来获得。当某个对象对这个类的静态成员变量的值进行修改的时候，其他对象获取的这个静态成员变量的值也会被修改。</p>
+<h4 id="Code-Example"><a href="#Code-Example" class="headerlink" title="Code Example:"></a>Code Example:</h4><p>体会迭代和递归的区别，下面是两种对一个链表每个元素做平方的方法。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">IntList</span> </span>&#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">int</span> first;</span><br><span class="line">	<span class="keyword">public</span> IntList rest;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> IntList <span class="title">square</span><span class="params">(IntList L)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (L == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> L;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            IntList rest = square(L.rest);</span><br><span class="line">            IntList M = <span class="keyword">new</span> IntList(L.first * L.first, rest);</span><br><span class="line">            <span class="keyword">return</span> M;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> IntList <span class="title">squareMutative</span><span class="params">(IntList L)</span> </span>&#123;</span><br><span class="line">        IntList M = L;</span><br><span class="line">        <span class="keyword">while</span> (M != <span class="keyword">null</span>) &#123;</span><br><span class="line">            M.first = M.first * M.first;</span><br><span class="line">            M = M.rest;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> L;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -333,6 +352,12 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/Data-Structure/" rel="tag"># Data Structure</a>
+          
+        </div>
+      
 
       
       
@@ -342,15 +367,15 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2018/05/25/CS61B-2/" rel="next" title="CS61B-2">
+                <i class="fa fa-chevron-left"></i> CS61B-2
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/05/24/First-Blog/" rel="prev" title="First Blog">
-                First Blog <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -477,7 +502,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Quick-Start"><span class="nav-number">1.</span> <span class="nav-text">Quick Start</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Create-a-new-post"><span class="nav-number">1.1.</span> <span class="nav-text">Create a new post</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Run-server"><span class="nav-number">1.2.</span> <span class="nav-text">Run server</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Generate-static-files"><span class="nav-number">1.3.</span> <span class="nav-text">Generate static files</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Deploy-to-remote-sites"><span class="nav-number">1.4.</span> <span class="nav-text">Deploy to remote sites</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Lec-3"><span class="nav-number">1.</span> <span class="nav-text">Lec 3</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Java-原始类型-primitive-type"><span class="nav-number">1.0.1.</span> <span class="nav-text">Java: 原始类型(primitive type)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Java-引用类型-reference-type"><span class="nav-number">1.0.2.</span> <span class="nav-text">Java: 引用类型(reference type)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Java-Array的实例化"><span class="nav-number">1.0.3.</span> <span class="nav-text">Java: Array的实例化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Review"><span class="nav-number">1.0.4.</span> <span class="nav-text">Review:</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Box-and-Poiter-Diagram"><span class="nav-number">1.0.4.1.</span> <span class="nav-text">Box and Poiter Diagram</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Static"><span class="nav-number">1.0.4.2.</span> <span class="nav-text">Static</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Code-Example"><span class="nav-number">1.0.5.</span> <span class="nav-text">Code Example:</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
