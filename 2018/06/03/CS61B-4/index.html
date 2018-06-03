@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Data Structure," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Lec 4From IntList to SLList重定义类我们在上一个lec里面实现了一个类似链表的数据结构IntList，我们现在重写一下这个类，将类名以及成员变量修改一下。 123456789public class IntNode &amp;#123;	public int item;    public IntNode next;        public IntNode(int i, In">
+<meta name="keywords" content="Data Structure">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CS61B-4">
+<meta property="og:url" content="http://yoursite.com/2018/06/03/CS61B-4/index.html">
+<meta property="og:site_name" content="CJ&#39;s Blog">
+<meta property="og:description" content="Lec 4From IntList to SLList重定义类我们在上一个lec里面实现了一个类似链表的数据结构IntList，我们现在重写一下这个类，将类名以及成员变量修改一下。 123456789public class IntNode &amp;#123;	public int item;    public IntNode next;        public IntNode(int i, In">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-06-03T07:29:55.479Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CS61B-4">
+<meta name="twitter:description" content="Lec 4From IntList to SLList重定义类我们在上一个lec里面实现了一个类似链表的数据结构IntList，我们现在重写一下这个类，将类名以及成员变量修改一下。 123456789public class IntNode &amp;#123;	public int item;    public IntNode next;        public IntNode(int i, In">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/06/03/CS61B-4/"/>
+
+
+
+
+
+  <title>CS61B-4 | CJ's Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">CJ's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/03/CS61B-4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="CJ">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/IMG_3806.JPG">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CJ's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">CS61B-4</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-03T14:40:39+08:00">
+                2018-06-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="Lec-4"><a href="#Lec-4" class="headerlink" title="Lec 4"></a>Lec 4</h2><h4 id="From-IntList-to-SLList"><a href="#From-IntList-to-SLList" class="headerlink" title="From IntList to SLList"></a>From IntList to SLList</h4><h5 id="重定义类"><a href="#重定义类" class="headerlink" title="重定义类"></a>重定义类</h5><p>我们在上一个lec里面实现了一个类似链表的数据结构<strong>IntList</strong>，我们现在重写一下这个类，将类名以及成员变量修改一下。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">IntNode</span> </span>&#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">int</span> item;</span><br><span class="line">    <span class="keyword">public</span> IntNode next;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">IntNode</span><span class="params">(<span class="keyword">int</span> i, IntNode n)</span> </span>&#123;</span><br><span class="line">		item = i;</span><br><span class="line">        next = n;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>当我们在其他的类内调用这个数据结构当作链表的话，都要在构造函数传入一个<strong>null</strong>的<strong>IntNode</strong>，这样写非常繁琐。解决的方法是另外定义一个类来表示链表，而<strong>IntNode</strong>表示的是链表里面的一个节点。</p>
+<h5 id="定义链表类"><a href="#定义链表类" class="headerlink" title="定义链表类"></a>定义链表类</h5><p>现在我们定义一个名为SLList的链表类。声明如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SLList</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> IntNode first;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">SLList</span><span class="params">(<span class="keyword">int</span> i)</span> </span>&#123;</span><br><span class="line">        first = <span class="keyword">new</span> IntNode(i, <span class="keyword">null</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这样我们就将申请新的节点的操作封装在了<strong>SLList</strong>的构造函数里面，而不需要用户再显式的写出来。</p>
+<p>这之间的差别如下，很明显能感受到两者的区别：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">IntNode X = <span class="keyword">new</span> IntNode(<span class="number">10</span>, <span class="keyword">null</span>);</span><br><span class="line">SLList Y = <span class="keyword">new</span> SLList(<span class="number">10</span>);</span><br></pre></td></tr></table></figure>
+<h5 id="public-和-private-关键字"><a href="#public-和-private-关键字" class="headerlink" title="public 和 private 关键字"></a>public 和 private 关键字</h5><p>当一个类的变量是通过 <strong>public</strong> 关键字来声明的话，用户可以直接通过对象来访问这个变量，甚至修改这个变量的值。如果我们不希望给予用户自行对这些变量执行某些不规范的逻辑操作导致发生某些错误的时候，我们可以使用 <strong>private</strong> 关键字来声明。</p>
+<p>比如我们在 <strong>SLList</strong> 中不希望用户直接使用 <code>.</code> 访问 <strong>IntNode</strong> 的话，我们可以对 <strong>IntNode</strong> 使用 <strong>private</strong> 来声明。</p>
+<p>使用 <strong>private</strong> 声明的变量只能在类内的函数中被调用，在其他类中是无法被调用的。</p>
+<h5 id="嵌套类"><a href="#嵌套类" class="headerlink" title="嵌套类"></a>嵌套类</h5><p>如果有时候我们只是使用一个辅助类方便我们的时候，可以直接将这个辅助类实现在外部类中。比如</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SLList</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="class"><span class="keyword">class</span> <span class="title">IntNode</span> </span>&#123;</span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">int</span> item;</span><br><span class="line">        <span class="keyword">public</span> IntNode next;</span><br><span class="line">        </span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">IntNode</span><span class="params">(<span class="keyword">int</span> i, IntNode n)</span> </span>&#123;</span><br><span class="line">            item = i;</span><br><span class="line">            next = n;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> IntNode first;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">SLList</span><span class="params">(<span class="keyword">int</span> i)</span> </span>&#123;</span><br><span class="line">        first = <span class="keyword">new</span> IntNode(i, <span class="keyword">null</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>一般使用嵌套类是因为这个辅助类对其他类是没什么帮助的，而且不需要用到这个辅助类的对象。</p>
+<p>当嵌套类不需要使用到外部类的成员变量以及函数的时候，可以将类声明为静态类型的，使用关键字 <strong>static</strong> 来声明 ，这样可以节省一部分内存。</p>
+<h5 id="添加成员函数"><a href="#添加成员函数" class="headerlink" title="添加成员函数"></a>添加成员函数</h5><p>这里就列举一些需要注意的函数</p>
+<ol>
+<li><p>计算链表的长度 size()</p>
+<p>我们有两种方式：</p>
+<ul>
+<li>每次调用size() 都遍历一次链表计算长度</li>
+<li>在类内维护一个 size变量，每次对链表进行增删的时候动态修改size的值，当要计算长度的时候就直接返回 size变量</li>
+</ul>
+</li>
+<li><p>给链表的尾部增加一个元素 addLast()</p>
+<p>这里需要注意的是我们需要判断 <strong>SLList</strong> 的 first是否为空，如果为空的话就直接对first 赋值，如果不为空的话就对 first的next 赋值。但是这样的话我们就要做额外的判断分支。一般来说我们都希望代码具有足够的鲁棒性而不是做更多的判断，为了不进行判断，我们引入了头节点的机制。</p>
+<p>也就是说在构造函数我们就给 first 分配一个任意值的节点，链表从first的next开始。也就是说我们在addLast()的时候是不需要判断 first是为空的。</p>
+</li>
+</ol>
+<p>其实还有其他很多成员函数，但是都不在这里一一列举啦～</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Data-Structure/" rel="tag"># Data Structure</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/05/28/CNN入门/" rel="next" title="CNN入门">
+                <i class="fa fa-chevron-left"></i> CNN入门
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/IMG_3806.JPG"
+                alt="CJ" />
+            
+              <p class="site-author-name" itemprop="name">CJ</p>
+              <p class="site-description motion-element" itemprop="description">挣扎于英语的CS狗/找不到工作的算法狗/大三狗</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Lec-4"><span class="nav-number">1.</span> <span class="nav-text">Lec 4</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#From-IntList-to-SLList"><span class="nav-number">1.0.1.</span> <span class="nav-text">From IntList to SLList</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#重定义类"><span class="nav-number">1.0.1.1.</span> <span class="nav-text">重定义类</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#定义链表类"><span class="nav-number">1.0.1.2.</span> <span class="nav-text">定义链表类</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#public-和-private-关键字"><span class="nav-number">1.0.1.3.</span> <span class="nav-text">public 和 private 关键字</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#嵌套类"><span class="nav-number">1.0.1.4.</span> <span class="nav-text">嵌套类</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#添加成员函数"><span class="nav-number">1.0.1.5.</span> <span class="nav-text">添加成员函数</span></a></li></ol></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">CJ</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
