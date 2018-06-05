@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="CJ&#39;s Blog">
 <meta property="og:description" content="Lec 4From IntList to SLList重定义类我们在上一个lec里面实现了一个类似链表的数据结构IntList，我们现在重写一下这个类，将类名以及成员变量修改一下。123456789public class IntNode &amp;#123;	public int item;    public IntNode next;        public IntNode(int i, Int">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-06-03T07:45:55.661Z">
+<meta property="og:updated_time" content="2018-06-03T07:59:50.318Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CS61B-4">
 <meta name="twitter:description" content="Lec 4From IntList to SLList重定义类我们在上一个lec里面实现了一个类似链表的数据结构IntList，我们现在重写一下这个类，将类名以及成员变量修改一下。123456789public class IntNode &amp;#123;	public int item;    public IntNode next;        public IntNode(int i, Int">
@@ -323,12 +323,13 @@
 <p>当嵌套类不需要使用到外部类的成员变量以及函数的时候，可以将类声明为静态类型的，使用关键字 <strong>static</strong> 来声明 ，这样可以节省一部分内存。</p>
 <h5 id="添加成员函数"><a href="#添加成员函数" class="headerlink" title="添加成员函数"></a>添加成员函数</h5><p>这里就列举一些需要注意的函数</p>
 <ol>
-<li><p>计算链表的长度 size()<br>我们有两种方式:</p>
-<ul>
+<li>计算链表的长度 size()<br>我们有两种方式:<ul>
 <li>每次调用size() 都遍历一次链表计算长度</li>
 <li>在类内维护一个 size变量，每次对链表进行增删的时候动态修改size的值，当要计算长度的时候就直接返回 size变量</li>
 </ul>
 </li>
+</ol>
+<ol start="2">
 <li><p>给链表的尾部增加一个元素 addLast()<br>这里需要注意的是我们需要判断 <strong>SLList</strong> 的 first 是否为空，如果为空的话就直接对 first 赋值，如果不为空的话就对 first的next 赋值。但是这样的话我们就要做额外的判断分支。一般来说我们都希望代码具有足够的鲁棒性而不是做更多的判断，为了不进行判断，我们引入了头节点的机制。</p>
 <p>也就是说在构造函数我们就给 first 分配一个任意值的节点，链表从 first 的 next 开始。也就是说我们在addLast()的时候是不需要判断 first 是为空的。</p>
 </li>
@@ -373,6 +374,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/06/06/项目培训小任务1-连接MongoDB/" rel="prev" title="项目培训小任务1-连接MongoDB">
+                项目培训小任务1-连接MongoDB <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -453,7 +458,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -466,7 +471,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-count">5</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
