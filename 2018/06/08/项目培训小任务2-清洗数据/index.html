@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="医疗知识图谱项目," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Background前几天说了如何连接到MongoDB拿到我们需要的语料集，这个语料集总共有29万篇文本，大小总共为6G。可以说这个数据已经是篇大型的数据集了。 由于数据集是师兄从网上爬下来的，所以文本的内容其实是HTML格式的，也就是包含了很多的HTML标签（emm不知道这样描述有没有不对的地方，我没有学过前端的知识哈哈）。然后我们也知道要将文本扔进去word2vec中训练前，我们是需要对数据进">
+<meta name="keywords" content="医疗知识图谱项目">
+<meta property="og:type" content="article">
+<meta property="og:title" content="项目培训小任务2-清洗数据">
+<meta property="og:url" content="http://yoursite.com/2018/06/08/项目培训小任务2-清洗数据/index.html">
+<meta property="og:site_name" content="CJ&#39;s Blog">
+<meta property="og:description" content="Background前几天说了如何连接到MongoDB拿到我们需要的语料集，这个语料集总共有29万篇文本，大小总共为6G。可以说这个数据已经是篇大型的数据集了。 由于数据集是师兄从网上爬下来的，所以文本的内容其实是HTML格式的，也就是包含了很多的HTML标签（emm不知道这样描述有没有不对的地方，我没有学过前端的知识哈哈）。然后我们也知道要将文本扔进去word2vec中训练前，我们是需要对数据进">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2018/06/08/项目培训小任务2-清洗数据/正则表达式.png">
+<meta property="og:updated_time" content="2018-06-08T12:51:58.736Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="项目培训小任务2-清洗数据">
+<meta name="twitter:description" content="Background前几天说了如何连接到MongoDB拿到我们需要的语料集，这个语料集总共有29万篇文本，大小总共为6G。可以说这个数据已经是篇大型的数据集了。 由于数据集是师兄从网上爬下来的，所以文本的内容其实是HTML格式的，也就是包含了很多的HTML标签（emm不知道这样描述有没有不对的地方，我没有学过前端的知识哈哈）。然后我们也知道要将文本扔进去word2vec中训练前，我们是需要对数据进">
+<meta name="twitter:image" content="http://yoursite.com/2018/06/08/项目培训小任务2-清洗数据/正则表达式.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/06/08/项目培训小任务2-清洗数据/"/>
+
+
+
+
+
+  <title>项目培训小任务2-清洗数据 | CJ's Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">CJ's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/08/项目培训小任务2-清洗数据/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="CJ">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/IMG_3806.JPG">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CJ's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">项目培训小任务2-清洗数据</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-08T15:21:35+08:00">
+                2018-06-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="Background"><a href="#Background" class="headerlink" title="Background"></a>Background</h3><p>前几天说了如何连接到MongoDB拿到我们需要的语料集，这个语料集总共有29万篇文本，大小总共为6G。可以说这个数据已经是篇大型的数据集了。</p>
+<p>由于数据集是师兄从网上爬下来的，所以文本的内容其实是HTML格式的，也就是包含了很多的HTML标签（emm不知道这样描述有没有不对的地方，我没有学过前端的知识哈哈）。然后我们也知道要将文本扔进去word2vec中训练前，我们是需要对数据进行清洗的～因此今天的任务我就来描述一下我是怎么初步清洗我手头上拿到的文本的。</p>
+<h3 id="Data-Analysis"><a href="#Data-Analysis" class="headerlink" title="Data Analysis"></a>Data Analysis</h3><p>首先我们来看看数据的篇章结构大概是怎么样的，我随便选一篇文本中的一段给大家看看。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">h2</span>&gt;</span>Abstract</span><br><span class="line"><span class="tag">&lt;<span class="name">h3</span>&gt;</span>Background</span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>The importance of cell-surface nucleolin in cancer biology was recently highlighted by studies showing that ligands of nucleolin play critical role in tumorigenesis and angiogenesis. By using a specific antagonist that binds the C-terminal tail of nucleolin, the HB-19 pseudopeptide, we recently reported that HB-19 treatment markedly suppressed the progression of established human breast tumor cell xenografts in the athymic nude mice without apparent toxicity.</span><br><span class="line"><span class="tag">&lt;<span class="name">h3</span>&gt;</span>Methods</span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>The in vivo antitumoral action of HB-19 treatment was assessed on the spontaneous development of melanoma in the RET transgenic mouse model. Ten days old RET mice were treated with HB-19 in a prophylactic setting that extended 300 days. In parallel, the molecular basis for the action of HB-19 was investigated on a melanoma cell line (called TIII) derived from a cutaneous nodule of a RET mouse.</span><br><span class="line"><span class="tag">&lt;<span class="name">h3</span>&gt;</span>Results</span><br></pre></td></tr></table></figure>
+<p>上面就是文本中的一个部分，可以看到不同段落或部分都是由&lt;&gt;定义的，通过&lt;&gt;定义了不同部分的层级结构。其中&lt;p&gt;表示的是段落部分，也是我们需要提取的部分，因为标题一般包含的信息量几乎为0。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[ref@@@1-ref@@@7]. Surface and cytoplasmic nucleolin are differentiated from nuclear nucleolin by a slight shift in their isoelectric point, which could reflect glycosylation of surface/cytoplasmic nucleolin [ref@@@3,ref@@@8,ref@@@9]. Moreover, surface/cytoplasmic nucleolin is regulated independently of its nuclear counterpart, since marked reduction of surface/cytoplasmic nucleolin could occur without any apparent effect on the level or nucleolar localization of nuclear nucleolin [ref@@@10].</span><br></pre></td></tr></table></figure>
+<p>另外还看到有<code>[ref@@@10]</code>这种文本，其实如果在网页上显示的话是各种引用的跳转链接。这些文本我们也可以直接去掉。</p>
+<p>其他的情况其实还有很多，这就不详细列举出来了。</p>
+<h3 id="Useful-Tools"><a href="#Useful-Tools" class="headerlink" title="Useful Tools"></a>Useful Tools</h3><ol>
+<li><h4 id="BeautifulSoup"><a href="#BeautifulSoup" class="headerlink" title="BeautifulSoup"></a>BeautifulSoup</h4><p>在python里面有一个超级好用的能够直接解析HTML格式的包，包名就是BeautifulSoup~这个包是在bs4里面的，我们可以通过<code>from bs4 import BeautifulSoup</code>语句来导包。其实这个包里面有很多功能，我接下来提到的只是一点皮毛，因为我们爬去到的数据和标准的html格式的数据有点不太一样，而且我们的需求也比较简单，所以就简单介绍一下。</p>
+<ul>
+<li><p>声明BeautifulSoup对象</p>
+<p>在使用BeautifulSoup的功能之前，我们要将我们的文本转换成一个BeautifulSoup的对象。声明对象是第一个传参是文件内容，有两种形式；第二个传参是解析形式，有四种，这里我用的是lxml。这里面值得注意的是lxml解析会直接将tag转换成小写比如&lt;P&gt;会转成&lt;p&gt;。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> bs4 <span class="keyword">import</span> BeautifulSoup</span><br><span class="line">soup = BeautifulSoup(open(file_name),<span class="string">'lxml'</span>)</span><br><span class="line">soup = BeautifulSoup(<span class="string">"&lt;html&gt;data&lt;/html&gt;"</span>,<span class="string">'html.parser'</span>)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>拿到对象中的段落内容</p>
+<p>在我们将文本传到BeautifulSoup中解析的时候，我们可以通过find()函数来找到第一个匹配的内容，通过find_all()函数找到全部匹配的内容。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">first_p = soup.find(<span class="string">'p'</span>) <span class="comment"># 第一个段落</span></span><br><span class="line">all_p = soup.find_all(<span class="string">'p'</span>) <span class="comment"># 全部段落</span></span><br></pre></td></tr></table></figure>
+<p>上面两条语句都是拿到段落的内容的，返回的格式是列表。因为段落是&lt;p&gt;标定的，所以传参就是’p’。是不是很简单。</p>
+</li>
+</ul>
+<p>于是这样我们就能够轻松去除标题，拿到段落。主要利用的是自动解析的功能。</p>
+</li>
+<li><h4 id="re"><a href="#re" class="headerlink" title="re"></a>re</h4><p>这是文本处理的神奇，正则表达式。正则简单来说其实就是定义一个规则，然后搜索文本找到满足这个规则的内容。这里面的水更深，优秀的人往往能够写一两句正则就可以清理掉大多数情况。很明显我不是那个优秀的人。。写个正则花了我很多时间。这次正好写了一下正则，就把正则的一些语法也整理在这里了。</p>
+<p><img src="/2018/06/08/项目培训小任务2-清洗数据/正则表达式.png" alt="正则表达式"></p>
+<p>几乎所有操作参照着上面的都能够慢慢打出来。下面我把我的处理过程展示出来。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">extract_sentence</span><span class="params">(sentence, remove_stop=True)</span>:</span></span><br><span class="line">    <span class="comment"># 由于BeautifulSoup得到的是unicode类型的，所以我们需要强制转换成str类型</span></span><br><span class="line">	_sentence = str(sentence)</span><br><span class="line">	<span class="comment"># 将引用的tag去掉，那些以ref为开头的</span></span><br><span class="line">	_sentence = re.sub(<span class="string">u"ref@&#123;3&#125;\d&#123;1,2&#125;\)?"</span>,<span class="string">""</span>, _sentence) </span><br><span class="line">	<span class="comment"># 将用括号包含的内容都去掉，括号一般只包含一两个词</span></span><br><span class="line">	_sentence = re.sub(<span class="string">u"\(.*?\)"</span>,<span class="string">""</span>, _sentence)</span><br><span class="line">	<span class="comment"># 处理摄氏度的那个单位</span></span><br><span class="line">	_sentence = re.sub(<span class="string">u"\d&#123;1,4&#125;?\W*?C"</span>,<span class="string">""</span>, _sentence)</span><br><span class="line">	<span class="comment"># 将 &lt;p&gt; 和 &lt;\p&gt; 和 \n去掉</span></span><br><span class="line">	_sentence = re.sub(<span class="string">u"&lt;p&gt;|\n|&lt;/p&gt;"</span>,<span class="string">""</span>, _sentence) </span><br><span class="line">	<span class="comment"># 把单独出现的数字去掉，数字的作用一般不大</span></span><br><span class="line">    <span class="comment"># 但是我们要注意保留好专有名词中的数字，不要破坏专有名词的结构</span></span><br><span class="line">	_sentence = re.sub(<span class="string">u"\s+\d&#123;1,4&#125;?[\s|%|,|\\\']"</span>,<span class="string">" "</span>,_sentence)</span><br><span class="line">	_sentence = re.sub(<span class="string">u"\d&#123;1,4&#125;\W\d&#123;1,4&#125;"</span>, <span class="string">""</span>,_sentence)</span><br><span class="line">	_sentence = re.sub(<span class="string">u" \d&#123;1,4&#125;?\W "</span>, <span class="string">"."</span>,_sentence)</span><br><span class="line">	<span class="comment"># 去掉正负号合在一起的那个号</span></span><br><span class="line">	_sentence = re.sub(<span class="string">u"\xc2\xb1"</span>,<span class="string">""</span>,_sentence)</span><br><span class="line">	<span class="comment"># 将括号去掉</span></span><br><span class="line">	_sentence = re.sub(<span class="string">u"[\[\]\(\)%]"</span>,<span class="string">""</span>,_sentence)</span><br><span class="line">	<span class="comment"># 将一个字符的缩写去掉</span></span><br><span class="line">	_sentence = re.sub(<span class="string">u"[A-Z]\."</span>,<span class="string">""</span>,_sentence)</span><br><span class="line">	<span class="comment"># 删除标点符号</span></span><br><span class="line">	_sentence = re.sub(<span class="string">u"[\.\,:?\\;]"</span>,<span class="string">" "</span>,_sentence)</span><br><span class="line">	_sentence = re.sub(<span class="string">u" - "</span>,<span class="string">" "</span>,_sentence)</span><br><span class="line">	words = _sentence.split() </span><br><span class="line">	<span class="comment"># 去除停用词</span></span><br><span class="line">	<span class="keyword">if</span> remove_stop :</span><br><span class="line">		words = [w <span class="keyword">for</span> w <span class="keyword">in</span> words <span class="keyword">if</span> <span class="keyword">not</span> w <span class="keyword">in</span> stop_words]</span><br><span class="line">	_sentence = words</span><br><span class="line">	<span class="keyword">return</span> <span class="string">" "</span>.join(_sentence)</span><br></pre></td></tr></table></figure>
+<p>这样处理了以后得到的大多数都是可读且简介的文本，并且这些文本都是以空格作为分隔符，段和段之间以\n分隔</p>
+</li>
+</ol>
+<h3 id="Unexpected-Problem"><a href="#Unexpected-Problem" class="headerlink" title="Unexpected Problem"></a>Unexpected Problem</h3><p>在处理的时候，有一些问题是没有遇到过的。期间也花了很大力气去解决：</p>
+<ul>
+<li><p>一些特殊字符进入编译器编译的时候是被编译成十六进制的，如果我们不用适当的方法转义回来，在保存的时候会直接将编译的那个字串保存到文件中。对我们的阅读会造成很大的困扰。解决的方法在处理完文本以后，对每一个文本都变成unicode的格式，并且对错误的转义操作设置为ignore就可以了。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">t = unicode(str(t), errors=<span class="string">'ignore'</span>)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在使用lxml进行解析的时候，会对段落中的&lt;号敏感，比如 1&lt;C 这种正常的文本内容解析器也进行解析了。所以我们在进行解析的时候就把这些 带&lt;的非tag文本都除掉，这样就方便我们解析了。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 将不是&lt;p或者&lt;h但是以&lt;开头的去掉</span></span><br><span class="line">text = re.sub(<span class="string">"&lt;[^ph]"</span>,<span class="string">''</span>,text)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h3><p>要想打个能处理很多情况的正则太难了。。在这里花了超级多的时间。等数据都处理完了以后就可以好好训练完成任务了呢～</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/医疗知识图谱项目/" rel="tag"># 医疗知识图谱项目</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/06/06/项目培训小任务1-连接MongoDB/" rel="next" title="项目培训小任务1-连接MongoDB">
+                <i class="fa fa-chevron-left"></i> 项目培训小任务1-连接MongoDB
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/IMG_3806.JPG"
+                alt="CJ" />
+            
+              <p class="site-author-name" itemprop="name">CJ</p>
+              <p class="site-description motion-element" itemprop="description">挣扎于英语的CS狗/找不到工作的算法狗/大三狗</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Background"><span class="nav-number">1.</span> <span class="nav-text">Background</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Data-Analysis"><span class="nav-number">2.</span> <span class="nav-text">Data Analysis</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Useful-Tools"><span class="nav-number">3.</span> <span class="nav-text">Useful Tools</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#BeautifulSoup"><span class="nav-number">3.1.</span> <span class="nav-text">BeautifulSoup</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#re"><span class="nav-number">3.2.</span> <span class="nav-text">re</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Unexpected-Problem"><span class="nav-number">4.</span> <span class="nav-text">Unexpected Problem</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Conclusion"><span class="nav-number">5.</span> <span class="nav-text">Conclusion</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">CJ</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
