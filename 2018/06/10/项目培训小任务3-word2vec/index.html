@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="医疗知识图谱," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Background上一次我们讲到如何处理手头上的数据，拿到了数据以后我们就能够开始训练词向量了。这里我们使用的是word2vec词向量，既然有机会在项目中使用到词向量，我就把一些概念性的东西聊一聊。 Word2VecIntroductionword2vec 拆开来讲其实是 “word to vector”，将每个词映射到某个固定维度的向量空间里面去，映射得到的向量我们称为词向量。我们常见的one">
+<meta name="keywords" content="医疗知识图谱">
+<meta property="og:type" content="article">
+<meta property="og:title" content="项目培训小任务3-word2vec">
+<meta property="og:url" content="http://yoursite.com/2018/06/10/项目培训小任务3-word2vec/index.html">
+<meta property="og:site_name" content="CJ&#39;s Blog">
+<meta property="og:description" content="Background上一次我们讲到如何处理手头上的数据，拿到了数据以后我们就能够开始训练词向量了。这里我们使用的是word2vec词向量，既然有机会在项目中使用到词向量，我就把一些概念性的东西聊一聊。 Word2VecIntroductionword2vec 拆开来讲其实是 “word to vector”，将每个词映射到某个固定维度的向量空间里面去，映射得到的向量我们称为词向量。我们常见的one">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2018/06/10/项目培训小任务3-word2vec/简单的神经网络架构.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/06/10/项目培训小任务3-word2vec/skipgram.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/06/10/项目培训小任务3-word2vec/CBOW.jpg">
+<meta property="og:updated_time" content="2018-06-10T11:40:41.788Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="项目培训小任务3-word2vec">
+<meta name="twitter:description" content="Background上一次我们讲到如何处理手头上的数据，拿到了数据以后我们就能够开始训练词向量了。这里我们使用的是word2vec词向量，既然有机会在项目中使用到词向量，我就把一些概念性的东西聊一聊。 Word2VecIntroductionword2vec 拆开来讲其实是 “word to vector”，将每个词映射到某个固定维度的向量空间里面去，映射得到的向量我们称为词向量。我们常见的one">
+<meta name="twitter:image" content="http://yoursite.com/2018/06/10/项目培训小任务3-word2vec/简单的神经网络架构.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/06/10/项目培训小任务3-word2vec/"/>
+
+
+
+
+
+  <title>项目培训小任务3-word2vec | CJ's Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">CJ's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/10/项目培训小任务3-word2vec/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="CJ">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/IMG_3806.JPG">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CJ's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">项目培训小任务3-word2vec</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-10T01:07:08+08:00">
+                2018-06-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018/06/10/项目培训小任务3-word2vec/" class="leancloud_visitors" data-flag-title="项目培训小任务3-word2vec">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1,921
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="Background"><a href="#Background" class="headerlink" title="Background"></a>Background</h3><p>上一次我们讲到如何处理手头上的数据，拿到了数据以后我们就能够开始训练词向量了。这里我们使用的是word2vec词向量，既然有机会在项目中使用到词向量，我就把一些概念性的东西聊一聊。</p>
+<h3 id="Word2Vec"><a href="#Word2Vec" class="headerlink" title="Word2Vec"></a>Word2Vec</h3><h4 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h4><p>word2vec 拆开来讲其实是 “word to vector”，将每个词映射到某个固定维度的向量空间里面去，映射得到的向量我们称为词向量。我们常见的one-hot词表示形式其实就是一种映射的方式。</p>
+<p>这里就要首先谈一谈词向量，这个部分已经被其他聊word2vec的博客聊烂了，所以我这里就简单聊一聊。</p>
+<h4 id="Word-Vector"><a href="#Word-Vector" class="headerlink" title="Word Vector"></a>Word Vector</h4><p>我们在开展一个文本类任务的时候，手头上最开始拿到的是一堆语料。如果我们要使用机器学习的方法来训练某个模型的时候，需要将文本数字化，将文本转换成一个全是数字的向量。其中有两种比较主流的词向量：<strong>One-hot Representation</strong> 和 <strong>Distributed Representation</strong>。</p>
+<h5 id="One-hot-Representation"><a href="#One-hot-Representation" class="headerlink" title="One-hot Representation"></a>One-hot Representation</h5><p>这是最直观的词表示方法就是这个方法，这个方法把每个词表示成一个长向量，向量的维度是不重复字典长度。向量中绝大多数元素为0，只有一个维度的值为1，这个维度代表了当前这个词。</p>
+<p>这样表示有以下几种不好的性质：</p>
+<ul>
+<li>得到的向量非常稀疏</li>
+<li>这种表示形式会出现词汇鸿沟现象：也就是任意两个词之间都是独立的，光从两个向量中看不出两个词是否有关系。比如给定两个有关联的词和另外一个无关联的词，三个词之间的欧式距离欧式根号2。</li>
+</ul>
+<h5 id="Distributed-Representation"><a href="#Distributed-Representation" class="headerlink" title="Distributed Representation"></a>Distributed Representation</h5><p>这个表示形式我翻译为分布式表示，思想是把词语映射到一个低维实数向量中去。这个维度是预先设定的，通常为整百维。给定某个词，这个向量一般是这样的 [0.11, 0.15, 0.233, -0.4, …]。</p>
+<p>某个词的分布式表示词向量不是唯一的，取决于不同的语料以及训练词向量的模型的设置等。使用这种表示方法的最大好处是：让相关的或者相近的词，在距离上更接近了。这里的距离指的是余弦距离、欧式距离之类的。比如”父亲”和”母亲”的距离要远小于”父亲”和”小狗”之间的距离。</p>
+<p>至于这种分布式词向量是怎么被训练出来的呢，我们下面就详细介绍一下Mikolov提出的Word2Vec框架。</p>
+<h4 id="Word2Vec-1"><a href="#Word2Vec-1" class="headerlink" title="Word2Vec"></a>Word2Vec</h4><p>这个框架有两种模型：Skip-gram 和 CBOW。而这两个模型本质上其实是一个神经网络。这里需要额外说明一句，这个算法是<strong>无监督</strong>的，也就是我们不需要人为提供标签。</p>
+<ul>
+<li>如果是用一个词语作为输入，预测它周围的上下文，那这个模型就是Skip-gram</li>
+<li>如果是用上下文作为输入，来预测这个词语的本身，那这个模型就是CBOW</li>
+</ul>
+<h5 id="Simple-Architecture"><a href="#Simple-Architecture" class="headerlink" title="Simple Architecture"></a>Simple Architecture</h5><p>上面提到了两个模型本质上是一个神经网络，现在就来看看这个基本的神经网络架构是怎样的。</p>
+<p>在看架构之前，我们要知道基本的任务，以及模型的输入输出是什么。我们现在假设任务是根据一个当前x来预测它的下一个词。网络的输入只接受数值类型，也就是我们不可以直接将一个字符串扔进去训练，而我们也不用使用分布式词向量，因为这个是我们网络训练的产物，现在我们需要的是x的一个原始输入形式。</p>
+<p>答案其实是将x的one-hot形式当作输入。输出的话我们希望网络能够输出所有词语的概率，我们希望这个概率向量跟真实的y的one-hot是一样的。</p>
+<p>那么现在我们来看看网络架构：<img src="/2018/06/10/项目培训小任务3-word2vec/简单的神经网络架构.jpg" alt="简单的神经网络架构"></p>
+<p>上面这个结构其实非常简单，只有一个隐藏层，而且这个<strong>隐藏层是线性的</strong>，也就是没有激活函数的。隐藏层的维度直接决定了词向量的维度。训练整一个网络的时候我们使用反向传播算法，在计算模型输出和真实输出的误差的时候我们使用的是交叉熵，也就是误差是真实输出为1的位置的模型输出的概率的负数。比如真实输出中1的下标是201，那么模型输出的第201个输出的负数就是误差。</p>
+<p><em>当模型训练完了以后，我们最后得到的产物其实就是神经网络的权重。比如我们现在输入一个x 的one-hot形式: [0,1,0,0…]，那么在输入层到隐藏层的权重里，只有1这个位置的权重会被激活，其他位置的权重都乘0了，输入层每个节点对应的权重数和隐藏层的节点数一致，所以这些权重组成一个新的向量来表示x，而因为每个词语的one-hot里面1的位置是不同的，所以这个向量就可以用来唯一表示x。</em></p>
+<h5 id="Skip-gram"><a href="#Skip-gram" class="headerlink" title="Skip-gram"></a>Skip-gram</h5><p>重申一句这个模型是根据一个词来预测它周围的上下文。下图是他的框架。<img src="/2018/06/10/项目培训小任务3-word2vec/skipgram.jpg" alt="skipgram"></p>
+<p>单纯看这个框架其实没什么难的，具体细节之后我再开一篇仔细聊聊。</p>
+<h5 id="CBOW"><a href="#CBOW" class="headerlink" title="CBOW"></a>CBOW</h5><p>这个模型是根据上下文预测中心词。</p>
+<p><img src="/2018/06/10/项目培训小任务3-word2vec/CBOW.jpg" alt="CBOW"></p>
+<p>这样就大概从概念上，以及架构上说了一下word2vec。但是里面涉及到的一些训练技巧，反向传播细节等都没有展示出来，以后我会再开多一篇从理论细节来解释。</p>
+<h3 id="Useful-Tools"><a href="#Useful-Tools" class="headerlink" title="Useful Tools"></a>Useful Tools</h3><p>嗯，这一个part就是接上清洗完语料的部分的。现在我们就可以将拿到的语料放进 <code>gensim.models</code> 的 <code>Word2Vec</code>中进行训练了。</p>
+<h4 id="sentences-generator"><a href="#sentences-generator" class="headerlink" title="sentences generator"></a>sentences generator</h4><p>由于我们的语料有点大，所以我们不选择直接将文本全部放进内存中，而是使用一个生成器将一个个句子放进内存中进行训练。通过定义一个__iter__类我们就可以定义一个生成器了。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 句子生成器</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">sentences_generator</span><span class="params">()</span>:</span></span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, dir_path)</span>:</span></span><br><span class="line">		self.dir_path = dir_path</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">__iter__</span><span class="params">(self)</span>:</span></span><br><span class="line">		dirs = os.listdir(self.dir_path)</span><br><span class="line"></span><br><span class="line">		<span class="keyword">for</span> file_name <span class="keyword">in</span> dirs:</span><br><span class="line">			READ_FILE_PATH = self.dir_path + file_name</span><br><span class="line"></span><br><span class="line">			<span class="keyword">with</span> codecs.open(READ_FILE_PATH,<span class="string">'r'</span>,<span class="string">'utf-8'</span>) <span class="keyword">as</span> f:</span><br><span class="line">				lines = f.readlines()</span><br><span class="line">				<span class="keyword">for</span> line <span class="keyword">in</span> lines:</span><br><span class="line">					sentence = line.strip(<span class="string">'\n'</span>).split(<span class="string">' '</span>)</span><br><span class="line">					<span class="keyword">yield</span> sentence</span><br></pre></td></tr></table></figure>
+<h4 id="gensim-models-Word2Vec"><a href="#gensim-models-Word2Vec" class="headerlink" title="gensim.models.Word2Vec"></a>gensim.models.Word2Vec</h4><p>这里需要注意一下，<code>gensim.models.word2vec</code>已经无法用了，要用小标题的函数。</p>
+<p>当我们声明了一个句子生成器以后，将生成器传到模型中，模型就会自动进行训练了。由于老师给我们的任务是直接使用缺省的参数就好，因此我也没有尝试不同参数以后的结果。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">sentences = sentences_generator(<span class="string">'./new_data/'</span>)</span><br><span class="line">model = Word2Vec(sentences)</span><br><span class="line"><span class="comment"># 保存模型</span></span><br><span class="line">model.save(<span class="string">'./w2v_model'</span>)</span><br><span class="line"><span class="comment"># 加载模型</span></span><br><span class="line">model.load(<span class="string">'./w2v_model'</span>)</span><br><span class="line"><span class="comment"># 拿到模型中的不重复词典</span></span><br><span class="line">model.wv.vocab</span><br></pre></td></tr></table></figure>
+<h3 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h3><p>训练的过程耗时其实比较短，本篇博客只是从认知上大概说了一下word2vec，具体理论留在日后有时间一点再好好整理出来～</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/医疗知识图谱/" rel="tag"># 医疗知识图谱</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/06/08/项目培训小任务2-清洗数据/" rel="next" title="项目培训小任务2-清洗数据">
+                <i class="fa fa-chevron-left"></i> 项目培训小任务2-清洗数据
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/IMG_3806.JPG"
+                alt="CJ" />
+            
+              <p class="site-author-name" itemprop="name">CJ</p>
+              <p class="site-description motion-element" itemprop="description">挣扎于英语的CS狗/找不到工作的算法狗/大三狗</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Background"><span class="nav-number">1.</span> <span class="nav-text">Background</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Word2Vec"><span class="nav-number">2.</span> <span class="nav-text">Word2Vec</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Introduction"><span class="nav-number">2.1.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Word-Vector"><span class="nav-number">2.2.</span> <span class="nav-text">Word Vector</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#One-hot-Representation"><span class="nav-number">2.2.1.</span> <span class="nav-text">One-hot Representation</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Distributed-Representation"><span class="nav-number">2.2.2.</span> <span class="nav-text">Distributed Representation</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Word2Vec-1"><span class="nav-number">2.3.</span> <span class="nav-text">Word2Vec</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Simple-Architecture"><span class="nav-number">2.3.1.</span> <span class="nav-text">Simple Architecture</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Skip-gram"><span class="nav-number">2.3.2.</span> <span class="nav-text">Skip-gram</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#CBOW"><span class="nav-number">2.3.3.</span> <span class="nav-text">CBOW</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Useful-Tools"><span class="nav-number">3.</span> <span class="nav-text">Useful Tools</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#sentences-generator"><span class="nav-number">3.1.</span> <span class="nav-text">sentences generator</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#gensim-models-Word2Vec"><span class="nav-number">3.2.</span> <span class="nav-text">gensim.models.Word2Vec</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Conclusion"><span class="nav-number">4.</span> <span class="nav-text">Conclusion</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">CJ</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("hIrARK4pUoUhk9JvN08qWUuq-gzGzoHsz", "uHOlNzI2ffH1nnDKRE2bK5vy");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
