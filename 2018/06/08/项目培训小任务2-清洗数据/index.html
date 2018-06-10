@@ -79,19 +79,19 @@
 
 
 
-<meta name="description" content="Background前几天说了如何连接到MongoDB拿到我们需要的语料集，这个语料集总共有29万篇文本，大小总共为6G。可以说这个数据已经是篇大型的数据集了。 由于数据集是师兄从网上爬下来的，所以文本的内容其实是HTML格式的，也就是包含了很多的HTML标签（emm不知道这样描述有没有不对的地方，我没有学过前端的知识哈哈）。然后我们也知道要将文本扔进去word2vec中训练前，我们是需要对数据进">
+<meta name="description" content="Background前几天说了如何连接到MongoDB拿到我们需要的语料集，这个语料集总共有29万篇文本，大小总共为6G。可以说这个数据已经是偏大型的数据集了。 由于数据集是师兄从网上爬下来的，所以文本的内容其实是HTML格式的，也就是包含了很多的HTML标签（emm不知道这样描述有没有不对的地方，我没有学过前端的知识哈哈）。然后我们也知道要将文本扔进去word2vec中训练前，我们是需要对数据进">
 <meta name="keywords" content="医疗知识图谱项目">
 <meta property="og:type" content="article">
 <meta property="og:title" content="项目培训小任务2-清洗数据">
 <meta property="og:url" content="http://yoursite.com/2018/06/08/项目培训小任务2-清洗数据/index.html">
 <meta property="og:site_name" content="CJ&#39;s Blog">
-<meta property="og:description" content="Background前几天说了如何连接到MongoDB拿到我们需要的语料集，这个语料集总共有29万篇文本，大小总共为6G。可以说这个数据已经是篇大型的数据集了。 由于数据集是师兄从网上爬下来的，所以文本的内容其实是HTML格式的，也就是包含了很多的HTML标签（emm不知道这样描述有没有不对的地方，我没有学过前端的知识哈哈）。然后我们也知道要将文本扔进去word2vec中训练前，我们是需要对数据进">
+<meta property="og:description" content="Background前几天说了如何连接到MongoDB拿到我们需要的语料集，这个语料集总共有29万篇文本，大小总共为6G。可以说这个数据已经是偏大型的数据集了。 由于数据集是师兄从网上爬下来的，所以文本的内容其实是HTML格式的，也就是包含了很多的HTML标签（emm不知道这样描述有没有不对的地方，我没有学过前端的知识哈哈）。然后我们也知道要将文本扔进去word2vec中训练前，我们是需要对数据进">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/2018/06/08/项目培训小任务2-清洗数据/正则表达式.png">
-<meta property="og:updated_time" content="2018-06-08T12:51:58.736Z">
+<meta property="og:updated_time" content="2018-06-10T13:42:05.784Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="项目培训小任务2-清洗数据">
-<meta name="twitter:description" content="Background前几天说了如何连接到MongoDB拿到我们需要的语料集，这个语料集总共有29万篇文本，大小总共为6G。可以说这个数据已经是篇大型的数据集了。 由于数据集是师兄从网上爬下来的，所以文本的内容其实是HTML格式的，也就是包含了很多的HTML标签（emm不知道这样描述有没有不对的地方，我没有学过前端的知识哈哈）。然后我们也知道要将文本扔进去word2vec中训练前，我们是需要对数据进">
+<meta name="twitter:description" content="Background前几天说了如何连接到MongoDB拿到我们需要的语料集，这个语料集总共有29万篇文本，大小总共为6G。可以说这个数据已经是偏大型的数据集了。 由于数据集是师兄从网上爬下来的，所以文本的内容其实是HTML格式的，也就是包含了很多的HTML标签（emm不知道这样描述有没有不对的地方，我没有学过前端的知识哈哈）。然后我们也知道要将文本扔进去word2vec中训练前，我们是需要对数据进">
 <meta name="twitter:image" content="http://yoursite.com/2018/06/08/项目培训小任务2-清洗数据/正则表达式.png">
 
 
@@ -342,7 +342,7 @@
       
 
       
-        <h3 id="Background"><a href="#Background" class="headerlink" title="Background"></a>Background</h3><p>前几天说了如何连接到MongoDB拿到我们需要的语料集，这个语料集总共有29万篇文本，大小总共为6G。可以说这个数据已经是篇大型的数据集了。</p>
+        <h3 id="Background"><a href="#Background" class="headerlink" title="Background"></a>Background</h3><p>前几天说了如何连接到MongoDB拿到我们需要的语料集，这个语料集总共有29万篇文本，大小总共为6G。可以说这个数据已经是偏大型的数据集了。</p>
 <p>由于数据集是师兄从网上爬下来的，所以文本的内容其实是HTML格式的，也就是包含了很多的HTML标签（emm不知道这样描述有没有不对的地方，我没有学过前端的知识哈哈）。然后我们也知道要将文本扔进去word2vec中训练前，我们是需要对数据进行清洗的～因此今天的任务我就来描述一下我是怎么初步清洗我手头上拿到的文本的。</p>
 <h3 id="Data-Analysis"><a href="#Data-Analysis" class="headerlink" title="Data Analysis"></a>Data Analysis</h3><p>首先我们来看看数据的篇章结构大概是怎么样的，我随便选一篇文本中的一段给大家看看。</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">h2</span>&gt;</span>Abstract</span><br><span class="line"><span class="tag">&lt;<span class="name">h3</span>&gt;</span>Background</span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>The importance of cell-surface nucleolin in cancer biology was recently highlighted by studies showing that ligands of nucleolin play critical role in tumorigenesis and angiogenesis. By using a specific antagonist that binds the C-terminal tail of nucleolin, the HB-19 pseudopeptide, we recently reported that HB-19 treatment markedly suppressed the progression of established human breast tumor cell xenografts in the athymic nude mice without apparent toxicity.</span><br><span class="line"><span class="tag">&lt;<span class="name">h3</span>&gt;</span>Methods</span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>The in vivo antitumoral action of HB-19 treatment was assessed on the spontaneous development of melanoma in the RET transgenic mouse model. Ten days old RET mice were treated with HB-19 in a prophylactic setting that extended 300 days. In parallel, the molecular basis for the action of HB-19 was investigated on a melanoma cell line (called TIII) derived from a cutaneous nodule of a RET mouse.</span><br><span class="line"><span class="tag">&lt;<span class="name">h3</span>&gt;</span>Results</span><br></pre></td></tr></table></figure>
