@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="医疗知识图谱项目," />
+  <meta name="keywords" content="笔试,机器学习," />
 
 
 
@@ -79,18 +79,20 @@
 
 
 
-<meta name="description" content="Background最近跳槽到了另一个老师那里，开启了一个新的旅程。主要做的内容是根据医疗的文本数据抽取出和医疗有关的实体，并且挖掘出实体之间的关系，构建一个医疗知识图谱。 当然刚刚进去的我就是个弱鸡，于是老师第一周就交给我和另一位同学一起做一个小任务。任务的内容是:  我们要从存储在数据库里面的一些文本语料提取出来 对提取到的语料数据进行清洗，比如去不规则词语、去除停用词等 使用w2v的技术训练">
-<meta name="keywords" content="医疗知识图谱项目">
+<meta name="description" content="在大疆笔试题中遇到了这一道题，今天就针对这个问题来简单说明一下两个模型的原理以及异同。 Logistic Regression逻辑回归是一个二分类算法，简单来说模型会预测每一个样本针对某个类别的一个概率，选择概率大的一类作为这个样本的类别。 在逻辑回归中使用到sigmoid函数，sigmoid相信看这篇文章的同学都知道，这里就不展开了。这里标定几个符号：  x : 样本 y : 标签 P(y|x)">
+<meta name="keywords" content="笔试,机器学习">
 <meta property="og:type" content="article">
-<meta property="og:title" content="项目培训小任务1-连接MongoDB">
-<meta property="og:url" content="http://yoursite.com/2018/06/06/项目培训小任务1-连接MongoDB/index.html">
+<meta property="og:title" content="SVM和LR的异同">
+<meta property="og:url" content="http://yoursite.com/2018/07/10/SVM和LR的异同/index.html">
 <meta property="og:site_name" content="CJ&#39;s Blog">
-<meta property="og:description" content="Background最近跳槽到了另一个老师那里，开启了一个新的旅程。主要做的内容是根据医疗的文本数据抽取出和医疗有关的实体，并且挖掘出实体之间的关系，构建一个医疗知识图谱。 当然刚刚进去的我就是个弱鸡，于是老师第一周就交给我和另一位同学一起做一个小任务。任务的内容是:  我们要从存储在数据库里面的一些文本语料提取出来 对提取到的语料数据进行清洗，比如去不规则词语、去除停用词等 使用w2v的技术训练">
+<meta property="og:description" content="在大疆笔试题中遇到了这一道题，今天就针对这个问题来简单说明一下两个模型的原理以及异同。 Logistic Regression逻辑回归是一个二分类算法，简单来说模型会预测每一个样本针对某个类别的一个概率，选择概率大的一类作为这个样本的类别。 在逻辑回归中使用到sigmoid函数，sigmoid相信看这篇文章的同学都知道，这里就不展开了。这里标定几个符号：  x : 样本 y : 标签 P(y|x)">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-06-05T16:49:46.841Z">
+<meta property="og:image" content="http://yoursite.com/2018/07/10/SVM和LR的异同/svmloss_logloss.png">
+<meta property="og:updated_time" content="2018-07-10T11:07:11.878Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="项目培训小任务1-连接MongoDB">
-<meta name="twitter:description" content="Background最近跳槽到了另一个老师那里，开启了一个新的旅程。主要做的内容是根据医疗的文本数据抽取出和医疗有关的实体，并且挖掘出实体之间的关系，构建一个医疗知识图谱。 当然刚刚进去的我就是个弱鸡，于是老师第一周就交给我和另一位同学一起做一个小任务。任务的内容是:  我们要从存储在数据库里面的一些文本语料提取出来 对提取到的语料数据进行清洗，比如去不规则词语、去除停用词等 使用w2v的技术训练">
+<meta name="twitter:title" content="SVM和LR的异同">
+<meta name="twitter:description" content="在大疆笔试题中遇到了这一道题，今天就针对这个问题来简单说明一下两个模型的原理以及异同。 Logistic Regression逻辑回归是一个二分类算法，简单来说模型会预测每一个样本针对某个类别的一个概率，选择概率大的一类作为这个样本的类别。 在逻辑回归中使用到sigmoid函数，sigmoid相信看这篇文章的同学都知道，这里就不展开了。这里标定几个符号：  x : 样本 y : 标签 P(y|x)">
+<meta name="twitter:image" content="http://yoursite.com/2018/07/10/SVM和LR的异同/svmloss_logloss.png">
 
 
 
@@ -120,13 +122,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/06/06/项目培训小任务1-连接MongoDB/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/07/10/SVM和LR的异同/"/>
 
 
 
 
 
-  <title>项目培训小任务1-连接MongoDB | CJ's Blog</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  <title>SVM和LR的异同 | CJ's Blog</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
   
 
 
@@ -243,7 +245,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/06/项目培训小任务1-连接MongoDB/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/10/SVM和LR的异同/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="CJ">
@@ -260,7 +262,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">项目培训小任务1-连接MongoDB</h1>
+          <h1 class="post-title" itemprop="name headline">SVM和LR的异同</h1>
         
 
         <div class="post-meta">
@@ -272,8 +274,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-06T00:08:04+08:00">
-                2018-06-06
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-10T11:15:51+08:00">
+                2018-07-10
               </time>
             
 
@@ -290,7 +292,7 @@
 
           
           
-             <span id="/2018/06/06/项目培训小任务1-连接MongoDB/" class="leancloud_visitors" data-flag-title="项目培训小任务1-连接MongoDB">
+             <span id="/2018/07/10/SVM和LR的异同/" class="leancloud_visitors" data-flag-title="SVM和LR的异同">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -315,7 +317,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  684
+                  1,671
                 </span>
               
 
@@ -340,41 +342,58 @@
       
 
       
-        <h3 id="Background"><a href="#Background" class="headerlink" title="Background"></a>Background</h3><p>最近跳槽到了另一个老师那里，开启了一个新的旅程。主要做的内容是根据医疗的文本数据抽取出和医疗有关的实体，并且挖掘出实体之间的关系，构建一个医疗知识图谱。</p>
-<p>当然刚刚进去的我就是个弱鸡，于是老师第一周就交给我和另一位同学一起做一个小任务。任务的内容是:</p>
+        <p>在大疆笔试题中遇到了这一道题，今天就针对这个问题来简单说明一下两个模型的原理以及异同。</p>
+<h4 id="Logistic-Regression"><a href="#Logistic-Regression" class="headerlink" title="Logistic Regression"></a>Logistic Regression</h4><p>逻辑回归是一个二分类算法，简单来说模型会预测每一个样本针对某个类别的一个概率，选择概率大的一类作为这个样本的类别。</p>
+<p>在逻辑回归中使用到sigmoid函数，sigmoid相信看这篇文章的同学都知道，这里就不展开了。这里标定几个符号：</p>
 <ul>
-<li>我们要从存储在数据库里面的一些文本语料提取出来</li>
-<li>对提取到的语料数据进行清洗，比如去不规则词语、去除停用词等</li>
-<li>使用w2v的技术训练词向量</li>
+<li>x : 样本</li>
+<li>y : 标签</li>
+<li>P(y|x) : 样本属于某个标签的概率</li>
+<li>l : 损失函数</li>
+<li>w, b : 模型的权重以及偏置量</li>
+<li>$\sigma$ : sigmoid函数</li>
 </ul>
-<p>我现在算是完成了第一个子任务了，特此记录一下整个过程～（虽然真的很简单</p>
-<h3 id="MongoDB"><a href="#MongoDB" class="headerlink" title="MongoDB"></a>MongoDB</h3><p>我们的数据是存放在MongoDB这样的一个数据库里面的。然后通过Robot 3T这样一个数据库可视化工具可以直接可视化数据库的内容</p>
-<p>MongoDB 是一个基于分布式文件存储的数据库。由 C++ 语言编写。旨在为 WEB 应用提供可扩展的高性能数据存储解决方案</p>
-<p>这个数据库相比其他数据库有什么优点我暂时还不知道。。不过能够跨平台的优点还是非常突出的～</p>
-<h4 id="Python-连接-MongoDB"><a href="#Python-连接-MongoDB" class="headerlink" title="Python 连接 MongoDB"></a>Python 连接 MongoDB</h4><p>环境: Linux ubuntu 16; python 2.7</p>
-<p>在python里面如果想要远程连接 MongoDB 需要安装 PyMongo 这个工具包</p>
-<p><code>pip install PyMongo</code></p>
-<p>使用上述命令就可以安装成功了</p>
-<p>接下来就分步骤来阐述我们要拿到所要的过程：</p>
-<ol>
-<li><p>连接到我们的MongoDB实例</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pymongo <span class="keyword">import</span> MongoClient</span><br><span class="line"><span class="comment"># 下述[xx]的内容都是需要用户自行替换的</span></span><br><span class="line"><span class="comment"># 在需要通过用户名以及用户密码登陆进来的时候需要使用这种声明方法</span></span><br><span class="line">client = MongoClient(<span class="string">'mongodb:[user]:[password]@[ip]:[port]/[database]'</span>)</span><br></pre></td></tr></table></figure>
+<p>规定完了符号以后就来看模型的前向过程：</p>
+<ul>
+<li>x属于标签1的概率为 $P(y=1|x)=\sigma(w^Tx+b)$</li>
+<li>最大似然 $P(w,b)=\prod_{i=1}^n P(y_i=1|x_i)^{y_i}P(y_i=0|x_i)^{1-y_i}$</li>
+<li>转换成对数似然并且取负有损失函数 $l(w,b)=-lnP(w,b)=-\sum_{i=1}^n(y_ilnP(y_i=1|x_i)+(1-y_i)lnP(y_i=0|x_i))$</li>
+<li>对一个样本进行类别判定 $\hat{y}=I[w^Tx+b\geq0.5]$</li>
+</ul>
+<p>继续看看w和b的梯度应该如何计算，下式中的$\sigma(x)=\sigma(w^Tx+b)$：<br>$$<br>dw=\frac{\partial l(w,b)}{\partial w}=-\sum_{i=1}^nx_iy_i(1-\sigma(x_i))-x_i(1-y_i)\sigma(x_i)=-\sum_{i=1}^nx_i(y_i-\sigma(x_i))\<br>db=\frac{\partial l(w,b)}{\partial b}=-\sum_{i=1}^n(y_i-\sigma(x_i))<br>$$<br>利用梯度下降法就可以得到每个时刻的w和b的更新公式如下：<br>$$<br>w:=w+\sum_{i=1}^nx_i(y_i-\sigma(x_i))\<br>b:=b+\sum_{i=1}^n(y_i-\sigma(x_i))<br>$$</p>
+<h4 id="Support-Vector-Machine"><a href="#Support-Vector-Machine" class="headerlink" title="Support Vector Machine"></a>Support Vector Machine</h4><p>支持向量机也是一个二分类算法，简单来说是要找到一个决策平面，使得这个平面距离两类的样本尽可能远。所以这里我们需要计算一个样本到决策平面间的距离，具体这里是怎么定义这个距离的我也不在这里细述。直接给出原始的目标函数：<br>$$<br>\text{max}\ \frac{1}{||w||} \<br>\text{s.t.}\ y_i(w^Tx_i+b)\geq1, i=1,2,…,n<br>$$<br>转换成下列凸优化形式：<br>$$<br>\text{min}\ \frac{||w||^2}{2} \<br>\text{s.t.}\ y_i(w^Tx_i+b)\geq1, i=1,2,…,n<br>$$<br>通过拉格朗日乘子转换成下面的目标函数：<br>$$<br>l(w,b,a)=\frac{||w||^2}{2}-\sum_{i=1}^na_i(y_i(w^Tx_i+b)-1)<br>$$<br>最后我们求解w的算式为(省略了很多内容)，b可以通过$1-w^Tx$来求得：<br>$$<br>w=\sum_{i=1}^na_iy_ix_i\<br>$$<br>求导操作也不是我们这节内容需要探讨的东西，推到目标函数就可以大概对两个模型进行比较了。</p>
+<h4 id="Comparison"><a href="#Comparison" class="headerlink" title="Comparison"></a>Comparison</h4><h5 id="模型目的概述"><a href="#模型目的概述" class="headerlink" title="模型目的概述"></a>模型目的概述</h5><ul>
+<li>逻辑回归的目标函数是最大化每个样本的概率。当样本在正确的方向上越远离决策平面，对应着$|w^Tx+b|$越大，那么逻辑回归就认为越好。所以所有样本对决策平面都有影响。</li>
+<li>SVM的目标函数是使得离平面最近的那些点的距离尽可能大。如果这个点不是支持向量的话对决策平面是不会有作用的。</li>
+</ul>
+<h5 id="一个出发点"><a href="#一个出发点" class="headerlink" title="一个出发点"></a>一个出发点</h5><p>在这里我们假定y的取值为{0,1}</p>
+<p>我们在LR中对一个样本进行预测的决策方案如下：<br>$$<br>\hat{y}=<br>\begin{cases}<br>1,P(y=1|x)\geq P(y=0|x)\<br>0,\text{otherwise}<br>\end{cases}<br>$$<br>我们如果不需要直接求的x属于某一个类的概率，而是直接判断样本属于哪一类的话。可以使用几率来描述。<br>$$<br>\frac{P(y=1|x)}{P(y=0|x)}\geq c<br>$$<br>上式中我们知道当两个概率相等时取1。一般去c是一个大于1的常数。对上式两边取对数有<br>$$<br>log(P(y=1|x))-log(P(y=0|x))\geq log(c)<br>$$<br>将P的算式带入得<br>$$<br>w^Tx+b\geq log(c)<br>$$<br>由于c是一个常数，我们取log(c)=1那么就有<br>$$<br>w^Tx+b\geq 1<br>$$<br>给这一个算式加上一个权重平方罚项就有<br>$$<br>\text{min}\ \frac{||w||^2}{2} \<br>\text{s.t.}\ (2y_i-1)(w^Tx_i+b)\geq1, i=1,2,…,n<br>$$<br>上面的形式就是SVM的形式了！我们从LR出发最后得到了SVM的目标函数。</p>
+<p>这里的关键是两个模型如何计算几率的损失，几率的表达式是$r=\frac{P(y=1|x)}{P(y=0|x)}=\text{exp}(w^Tx+b)$。</p>
+<p>在逻辑回归中有<br>$$<br>\text{cost(r)}=\text{log}(1+\frac{1}{r})=\text{log}(1+\text{exp}(-(w^T+b)))<br>$$<br>在SVM中有<br>$$<br>\text{cost(r)}=\text{max}(0,1-\text{log}(r))=\text{max}(0,1-(w^Tx+b))<br>$$<br>两种损失的比较如下：<img src="/2018/07/10/SVM和LR的异同/svmloss_logloss.png" alt="svmloss_logloss"></p>
+<h4 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h4><p>上面从公式层面推导了一下两者的异同，下面就是一系列的总结。总结性的内容大多摘自 <a href="https://blog.csdn.net/haolexiao/article/details/70191667" target="_blank" rel="noopener">Linear SVM 和 LR 的联系和区别</a></p>
+<h5 id="相同点"><a href="#相同点" class="headerlink" title="相同点"></a>相同点</h5><ol>
+<li>两种算法都是有监督的分类算法。</li>
+<li>都是线形分类算法，指逻辑回归以及线形SVM。也就是最后都是为了求得一个线形决策平面。</li>
+<li>都是判别式模型。</li>
+</ol>
+<h5 id="不同点"><a href="#不同点" class="headerlink" title="不同点"></a>不同点</h5><ol>
+<li><p>最本质的不同点就是损失函数或者是目标函数不一样。LR是交叉熵，而SVM是最大化间隔距离。</p>
 </li>
-<li><p>拿到实例中的数据库</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">database = client[<span class="string">'database_name'</span>]</span><br></pre></td></tr></table></figure>
+<li><p>SVM不能直接生成概率，而LR可以。</p>
 </li>
-<li><p>拿到数据库中的collection</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">collection = database[<span class="string">'collection_name'</span>]</span><br></pre></td></tr></table></figure>
+<li><p>SVM是基于距离的，所以其依赖于不同维度测度的不同，如果不同维度间相差较大需要做归一化。而LR是基于概率的，因此理论上来说不需要进行归一化，但是假如是使用梯度下降进行求解一般都是要进行归一化的操作。</p>
 </li>
-<li><p>在我们拿到了collection 以后就可以做比较多的事情了，比如返回当前collection下文件总数，以及拿到所有文件等</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">files_num = collection.count()</span><br><span class="line">files = collection.find()</span><br></pre></td></tr></table></figure>
+<li><p>SVM自带结构风险最小化，LR则是经验风险最小化。</p>
+<ul>
+<li>经验风险：对训练集中的所有样本点损失函数的平均最小化。经验风险越小说明模型f(X)对训练集的拟合程度越好。</li>
+<li>期望风险：表示的是全局的概念，表示的是决策函数对所有的样本&lt;X,Y&gt;预测能力的大小，而经验风险则是局部的概念，仅仅表示决策函数对训练数据集里样本的预测能力。</li>
+<li>结构风险：是对经验风险和期望风险的折中。在经验风险函数后面加一个正则化项（惩罚项）便是结构风险了。</li>
+</ul>
+<p>在上面我们看到了SVM的目标函数是自带正则项的，而LR没有正则化的情况下就是单纯经验风险最小化。</p>
 </li>
-<li><p>将所有的文件都放在本地中的某个文件夹中</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> f <span class="keyword">in</span> files:</span><br><span class="line">  <span class="keyword">with</span> open(SAVED_PATH + f[<span class="string">'name'</span>], <span class="string">'wb'</span>) <span class="keyword">as</span> f1:</span><br><span class="line">     f1.write(f[<span class="string">'content'</span>].encode(<span class="string">'utf-8'</span>))</span><br></pre></td></tr></table></figure>
+<li><p>在实际应用中，当数据量远大于特征量选择用LR，当数据量比较小就可以使用SVM。</p>
 </li>
 </ol>
-<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>mongoDB肯定还有很多有意思的操作，可是我们现在的任务不研究这个是吧～先留个坑等到以后有机会再来研究这个数据库～</p>
-<p>接下来要在一周之内把词向量训练出来～加油！</p>
 
       
     </div>
@@ -392,7 +411,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/医疗知识图谱项目/" rel="tag"># 医疗知识图谱项目</a>
+            <a href="/tags/笔试/" rel="tag"># 笔试</a>
+          
+            <a href="/tags/机器学习/" rel="tag"># 机器学习</a>
           
         </div>
       
@@ -405,8 +426,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/06/03/CS61B-4/" rel="next" title="CS61B-4">
-                <i class="fa fa-chevron-left"></i> CS61B-4
+              <a href="/2018/06/24/网易2018NLP岗笔试题/" rel="next" title="网易2018NLP岗笔试题">
+                <i class="fa fa-chevron-left"></i> 网易2018NLP岗笔试题
               </a>
             
           </div>
@@ -414,10 +435,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/06/08/项目培训小任务2-清洗数据/" rel="prev" title="项目培训小任务2-清洗数据">
-                项目培训小任务2-清洗数据 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -544,7 +561,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Background"><span class="nav-number">1.</span> <span class="nav-text">Background</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MongoDB"><span class="nav-number">2.</span> <span class="nav-text">MongoDB</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Python-连接-MongoDB"><span class="nav-number">2.1.</span> <span class="nav-text">Python 连接 MongoDB</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">3.</span> <span class="nav-text">总结</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#Logistic-Regression"><span class="nav-number">1.</span> <span class="nav-text">Logistic Regression</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Support-Vector-Machine"><span class="nav-number">2.</span> <span class="nav-text">Support Vector Machine</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Comparison"><span class="nav-number">3.</span> <span class="nav-text">Comparison</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#模型目的概述"><span class="nav-number">3.1.</span> <span class="nav-text">模型目的概述</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#一个出发点"><span class="nav-number">3.2.</span> <span class="nav-text">一个出发点</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Conclusion"><span class="nav-number">4.</span> <span class="nav-text">Conclusion</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#相同点"><span class="nav-number">4.1.</span> <span class="nav-text">相同点</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#不同点"><span class="nav-number">4.2.</span> <span class="nav-text">不同点</span></a></li></ol></li></ol></div>
             
 
           </div>
