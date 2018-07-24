@@ -88,7 +88,7 @@
 <meta property="og:description" content="Interview QuestionWhat is regularization? The differences between Lasso vs Ridge? 翻译成中文就是什么是正则化？Lasso和Ridge的区别？ 这个问题要回答起来其实可以拓展很多，我现在先写着一些内容，之后有新的理解可以再加上。 经验风险以及结构风险在讲正则化之前，我们要先讲什么是经验风险，什么是结构风险最小化。 在机">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/2018/07/23/ML系列-1/l1-l2-sl.png">
-<meta property="og:updated_time" content="2018-07-24T11:53:37.415Z">
+<meta property="og:updated_time" content="2018-07-24T11:58:20.358Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ML系列-1">
 <meta name="twitter:description" content="Interview QuestionWhat is regularization? The differences between Lasso vs Ridge? 翻译成中文就是什么是正则化？Lasso和Ridge的区别？ 这个问题要回答起来其实可以拓展很多，我现在先写着一些内容，之后有新的理解可以再加上。 经验风险以及结构风险在讲正则化之前，我们要先讲什么是经验风险，什么是结构风险最小化。 在机">
@@ -348,7 +348,8 @@
 <h4 id="经验风险以及结构风险"><a href="#经验风险以及结构风险" class="headerlink" title="经验风险以及结构风险"></a>经验风险以及结构风险</h4><p>在讲正则化之前，我们要先讲什么是经验风险，什么是结构风险最小化。</p>
 <p>在机器学习中我们把模型在训练集上的平均损失称为经验风险；如果在最小化经验风险的基础上引入模型参数的正则化，限制模型的拟合能力，让模型不要过度的最小化经验风险，这就叫做结构风险最小化。</p>
 <h4 id="正则化"><a href="#正则化" class="headerlink" title="正则化"></a>正则化</h4><p>正则化其实是一类通过限制模型复杂度，从而避免过拟合，提高模型泛化能力，包括引入一些约束规则，增加先验，提前停止等。</p>
-<p>$l1$和$l2$正则化是机器学习中最常用的两种正则化方法，通过约束参数的$l1$和$l2$范数减少模型在训练集上的过拟合情况。通过加入$l1$和$l2$正则化，模型的正则化可以写为：<br>$$<br>\theta^*=\mathop{\arg\min}<em>{\theta} \frac{1}{N}\sum^{N}</em>{n=1}L(y^{n},f(x^n,\theta))+\lambda l_p(\theta)<br>$$<br>上式中N是样本数，y是样本真实输出，f是模型，$\theta$是模型参数，$l_p$是范数，$\lambda$是正则化系数，控制了正则化的程度。当p取1的时候就是$l1$正则化，取2的时候就是$l2$正则化。</p>
+<p>$l1$和$l2$正则化是机器学习中最常用的两种正则化方法，通过约束参数的$l1$和$l2$范数减少模型在训练集上的过拟合情况。通过加入$l1$和$l2$正则化，模型的正则化可以写为：</p>
+<p>$$<br>\theta^*=\arg\min_{\theta} \frac{1}{N}\sum^{N}_{n=1}L(y^{n},f(x^n,\theta))+\lambda l_p(\theta)<br>$$<br>上式中N是样本数，y是样本真实输出，f是模型，$\theta$是模型参数，$l_p$是范数，$\lambda$是正则化系数，控制了正则化的程度。当p取1的时候就是$l1$正则化，取2的时候就是$l2$正则化。</p>
 <h4 id="Lasso"><a href="#Lasso" class="headerlink" title="Lasso"></a>Lasso</h4><p>Lasso其实就是带$l1$正则化的线形回归。模型的损失函数如下，下式的系数标为1/2不影响最优化的求解：<br>$$<br>L=\frac{1}{2}\sum_{n=1}^N(y^n-\theta^Tx^n)^2+\lambda||\theta||_1<br>$$<br>由于$||\theta||$在0值处不可导(我们可以想象一下$\theta$是一维的情况，那么函数是一个开口向上的V字形函数，在0点处相切的话有两条直线，所以在0处不可导)，所以常用的基于梯度更新参数的求解方法并不能用在这个最优化问题里面。常用的求解方法是<a href="http://blog.csdn.net/ymmxz/article/details/69396222" target="_blank" rel="noopener">坐标轴下降法</a>，坐标轴下降顾名思义就是沿着坐标轴的方向下降，而梯度下降是沿着梯度的负方向下降。</p>
 <h5 id="坐标轴下降法"><a href="#坐标轴下降法" class="headerlink" title="坐标轴下降法"></a>坐标轴下降法</h5><p>该方法的数学依据主要来自下结论：对于一个可微的凸函数$J(\theta)$，其中$\theta \in R^{n*1}$。如果在某一点$\overline{\theta}$，使得$J(\theta)$在每一个坐标轴$\overline{\theta_i}$ (i = 1,2,…,n)上都是最小值，那么$J(\overline \theta)$就是全局最小值。</p>
 <p>于是优化目标就是在$\theta$的n个坐标轴上对损失函数进行迭代的下降，更新过程如下：</p>
