@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="机器学习," />
 
 
 
@@ -79,17 +79,20 @@
 
 
 
-<meta name="description" content="挣扎于英语的CS狗/找不到工作的算法狗/大三狗">
+<meta name="description" content="Interview QuestionWhat is regularization? The differences between Lasso vs Ridge? 翻译成中文就是什么是正则化？Lasso和Ridge的区别？ 这个问题要回答起来其实可以拓展很多，我现在先写着一些内容，之后有新的理解可以再加上。 经验风险以及结构风险在讲正则化之前，我们要先讲什么是经验风险，什么是结构风险最小化。 在机">
+<meta name="keywords" content="机器学习">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ML系列-1">
 <meta property="og:url" content="http://yoursite.com/2018/07/23/ML系列-1/index.html">
 <meta property="og:site_name" content="CJ&#39;s Blog">
-<meta property="og:description" content="挣扎于英语的CS狗/找不到工作的算法狗/大三狗">
+<meta property="og:description" content="Interview QuestionWhat is regularization? The differences between Lasso vs Ridge? 翻译成中文就是什么是正则化？Lasso和Ridge的区别？ 这个问题要回答起来其实可以拓展很多，我现在先写着一些内容，之后有新的理解可以再加上。 经验风险以及结构风险在讲正则化之前，我们要先讲什么是经验风险，什么是结构风险最小化。 在机">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-07-23T15:42:00.031Z">
+<meta property="og:image" content="http://yoursite.com/2018/07/23/ML系列-1/l1-l2-sl.png">
+<meta property="og:updated_time" content="2018-07-24T11:53:37.415Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ML系列-1">
-<meta name="twitter:description" content="挣扎于英语的CS狗/找不到工作的算法狗/大三狗">
+<meta name="twitter:description" content="Interview QuestionWhat is regularization? The differences between Lasso vs Ridge? 翻译成中文就是什么是正则化？Lasso和Ridge的区别？ 这个问题要回答起来其实可以拓展很多，我现在先写着一些内容，之后有新的理解可以再加上。 经验风险以及结构风险在讲正则化之前，我们要先讲什么是经验风险，什么是结构风险最小化。 在机">
+<meta name="twitter:image" content="http://yoursite.com/2018/07/23/ML系列-1/l1-l2-sl.png">
 
 
 
@@ -314,7 +317,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  0
+                  1,317
                 </span>
               
 
@@ -339,7 +342,39 @@
       
 
       
-        
+        <h4 id="Interview-Question"><a href="#Interview-Question" class="headerlink" title="Interview Question"></a>Interview Question</h4><p>What is regularization? The differences between Lasso vs Ridge?</p>
+<p>翻译成中文就是什么是正则化？Lasso和Ridge的区别？</p>
+<p>这个问题要回答起来其实可以拓展很多，我现在先写着一些内容，之后有新的理解可以再加上。</p>
+<h4 id="经验风险以及结构风险"><a href="#经验风险以及结构风险" class="headerlink" title="经验风险以及结构风险"></a>经验风险以及结构风险</h4><p>在讲正则化之前，我们要先讲什么是经验风险，什么是结构风险最小化。</p>
+<p>在机器学习中我们把模型在训练集上的平均损失称为经验风险；如果在最小化经验风险的基础上引入模型参数的正则化，限制模型的拟合能力，让模型不要过度的最小化经验风险，这就叫做结构风险最小化。</p>
+<h4 id="正则化"><a href="#正则化" class="headerlink" title="正则化"></a>正则化</h4><p>正则化其实是一类通过限制模型复杂度，从而避免过拟合，提高模型泛化能力，包括引入一些约束规则，增加先验，提前停止等。</p>
+<p>$l1$和$l2$正则化是机器学习中最常用的两种正则化方法，通过约束参数的$l1$和$l2$范数减少模型在训练集上的过拟合情况。通过加入$l1$和$l2$正则化，模型的正则化可以写为：<br>$$<br>\theta^*=\mathop{\arg\min}<em>{\theta} \frac{1}{N}\sum^{N}</em>{n=1}L(y^{n},f(x^n,\theta))+\lambda l_p(\theta)<br>$$<br>上式中N是样本数，y是样本真实输出，f是模型，$\theta$是模型参数，$l_p$是范数，$\lambda$是正则化系数，控制了正则化的程度。当p取1的时候就是$l1$正则化，取2的时候就是$l2$正则化。</p>
+<h4 id="Lasso"><a href="#Lasso" class="headerlink" title="Lasso"></a>Lasso</h4><p>Lasso其实就是带$l1$正则化的线形回归。模型的损失函数如下，下式的系数标为1/2不影响最优化的求解：<br>$$<br>L=\frac{1}{2}\sum_{n=1}^N(y^n-\theta^Tx^n)^2+\lambda||\theta||_1<br>$$<br>由于$||\theta||$在0值处不可导(我们可以想象一下$\theta$是一维的情况，那么函数是一个开口向上的V字形函数，在0点处相切的话有两条直线，所以在0处不可导)，所以常用的基于梯度更新参数的求解方法并不能用在这个最优化问题里面。常用的求解方法是<a href="http://blog.csdn.net/ymmxz/article/details/69396222" target="_blank" rel="noopener">坐标轴下降法</a>，坐标轴下降顾名思义就是沿着坐标轴的方向下降，而梯度下降是沿着梯度的负方向下降。</p>
+<h5 id="坐标轴下降法"><a href="#坐标轴下降法" class="headerlink" title="坐标轴下降法"></a>坐标轴下降法</h5><p>该方法的数学依据主要来自下结论：对于一个可微的凸函数$J(\theta)$，其中$\theta \in R^{n*1}$。如果在某一点$\overline{\theta}$，使得$J(\theta)$在每一个坐标轴$\overline{\theta_i}$ (i = 1,2,…,n)上都是最小值，那么$J(\overline \theta)$就是全局最小值。</p>
+<p>于是优化目标就是在$\theta$的n个坐标轴上对损失函数进行迭代的下降，更新过程如下：</p>
+<ol>
+<li><p>选取初始参数 $\theta^{(0)} = (\theta^{(0)}_1,\theta^{(0)}_2, …, \theta^{(0)}_n)$。右上角括号指迭代次数，右下角指参数的第几维。</p>
+</li>
+<li><p>对于第k轮迭代。从$\theta_1^{(k)}$开始，到$\theta_n^{(k)}$结束，依次求$\theta_i^{(k)}$。$\theta_i^{(k)}$的表达式如下：<br>$$<br>\theta_i^{(k)}\in \mathop{\arg\min}_{\theta_i}J(\theta_1^{(k)},\theta_2^{(k)},…,\theta_{i-1}^{(k)},\theta_i,\theta_{i+1}^{(k-1)},…,\theta_{n}^{(k-1)})<br>$$<br>也就是$\theta_i^{(k)}$是使得上面J最小化的时候的$\theta_i$的值，上式只有$\theta_i$是变量，其余都是常量，所以很容易通过求导得到该值。</p>
+</li>
+<li><p>通过t轮迭代后，如果$\theta^{t}$相对于$\theta^{t-1}$的变化很小，则停止迭代，否则进入第 t+1轮迭代。</p>
+</li>
+</ol>
+<h4 id="Ridge"><a href="#Ridge" class="headerlink" title="Ridge"></a>Ridge</h4><p>Ridge其实就是带$l2$正则化的线性回归。模型的损失函数如下：<br>$$<br>L=\frac{1}{2}\sum_{n=1}^N(y^n-\theta^Tx^n)^2+\frac{\lambda}{2}||\theta||_2^2<br>$$</p>
+<p>该损失函数是连续可微的，利用损失函数对$\theta$求导就得到更新的方向了：</p>
+<p>$$<br>\frac{\partial L}{\partial \theta}=\sum^N_{n=1}(y^n-\theta^Tx^n)x^n+\lambda\theta<br>$$</p>
+<h4 id="Lasso-vs-Ridge"><a href="#Lasso-vs-Ridge" class="headerlink" title="Lasso vs Ridge"></a>Lasso vs Ridge</h4><p>介绍完两种带正则化的回归以后我们就可以对比一下两种回归了。这里先给出结论：</p>
+<ul>
+<li>两种正则化都能在一定程度上减少过拟合。</li>
+<li>Lasso倾向于让参数稠密地接近于零；而Ridge倾向于使参数稀疏化，也就是会使得参数中含有多个0元素。</li>
+</ul>
+<p>针对第二个结论这里直接拿来西瓜书上的一张图来体会一下这个过程。</p>
+<p><img src="/2018/07/23/ML系列-1/l1-l2-sl.png" alt=""></p>
+<p>上图只考虑模型含有两个参数。在图中有三组等值线，位于同一条等值线上的数值，具有相同的值。</p>
+<p>我们可以把求解带有约束条件的目标函数看作，在正则化等值线和损失函数的等值线中寻找一个交点，使得二者的和最小。</p>
+<p>对于$l1$正则也就是Ridge来说，等值线是一个菱形，那么交点很容易就会落在坐标轴上。这就意味着有一个参数的值为0，从而实现稀疏化。</p>
+<p>而对于$l2$正则来说，等值线是一个圆。所以交点可能落在任何位置，所以并不能实现稀疏化。</p>
+
       
     </div>
     
@@ -353,6 +388,12 @@
     
 
     <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/机器学习/" rel="tag"># 机器学习</a>
+          
+        </div>
       
 
       
@@ -423,8 +464,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -479,6 +529,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#Interview-Question"><span class="nav-number">1.</span> <span class="nav-text">Interview Question</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#经验风险以及结构风险"><span class="nav-number">2.</span> <span class="nav-text">经验风险以及结构风险</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#正则化"><span class="nav-number">3.</span> <span class="nav-text">正则化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Lasso"><span class="nav-number">4.</span> <span class="nav-text">Lasso</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#坐标轴下降法"><span class="nav-number">4.1.</span> <span class="nav-text">坐标轴下降法</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Ridge"><span class="nav-number">5.</span> <span class="nav-text">Ridge</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Lasso-vs-Ridge"><span class="nav-number">6.</span> <span class="nav-text">Lasso vs Ridge</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
