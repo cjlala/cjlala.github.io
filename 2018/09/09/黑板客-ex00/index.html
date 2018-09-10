@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Data Structure," />
+  <meta name="keywords" content="爬虫," />
 
 
 
@@ -79,20 +79,23 @@
 
 
 
-<meta name="description" content="Lec 3Java: 原始类型(primitive type) 我们的计算机在执行的时候，将数据放在内存中运算。数据被表示成0和1的组合 任意不同的Java类型会以不同的方式来解析bits Java有8种原始类型：byte, short, int, long, float, double, boolean, char 当我们声明了一个类型以后，计算机会给这个类型的变量分配固定比特数的空间。比如in">
-<meta name="keywords" content="Data Structure">
+<meta name="description" content="最近在实习，然而做的事情很多都是业务方面的事情，算法方面没什么有价值的东西可写，倒是在项目中要用到爬虫的地方挺多的，所以看了挺久的爬虫也觉得爬虫非常有意思。偶然之间看到黑板客这个东西，是一个通过爬虫来闯关的一个网站，十分有趣，这里会记录第一个练习的过程。 网站页面描述先直接给出网站 http://www.heibanke.com/lesson/crawler_ex00/。 然后能看到网站的页面内容">
+<meta name="keywords" content="爬虫">
 <meta property="og:type" content="article">
-<meta property="og:title" content="CS61B-3">
-<meta property="og:url" content="http://yoursite.com/2018/05/26/CS61B-3/index.html">
+<meta property="og:title" content="黑板客-ex00">
+<meta property="og:url" content="http://yoursite.com/2018/09/09/黑板客-ex00/index.html">
 <meta property="og:site_name" content="CJ&#39;s Blog">
-<meta property="og:description" content="Lec 3Java: 原始类型(primitive type) 我们的计算机在执行的时候，将数据放在内存中运算。数据被表示成0和1的组合 任意不同的Java类型会以不同的方式来解析bits Java有8种原始类型：byte, short, int, long, float, double, boolean, char 当我们声明了一个类型以后，计算机会给这个类型的变量分配固定比特数的空间。比如in">
+<meta property="og:description" content="最近在实习，然而做的事情很多都是业务方面的事情，算法方面没什么有价值的东西可写，倒是在项目中要用到爬虫的地方挺多的，所以看了挺久的爬虫也觉得爬虫非常有意思。偶然之间看到黑板客这个东西，是一个通过爬虫来闯关的一个网站，十分有趣，这里会记录第一个练习的过程。 网站页面描述先直接给出网站 http://www.heibanke.com/lesson/crawler_ex00/。 然后能看到网站的页面内容">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/2018/05/26/CS61B-3/Box_pointer.png">
-<meta property="og:updated_time" content="2018-05-26T12:06:59.238Z">
+<meta property="og:image" content="http://yoursite.com/2018/09/09/黑板客-ex00/1.png">
+<meta property="og:image" content="http://yoursite.com/2018/09/09/黑板客-ex00/2.png">
+<meta property="og:image" content="http://yoursite.com/2018/09/09/黑板客-ex00/3.png">
+<meta property="og:image" content="http://yoursite.com/2018/09/09/黑板客-ex00/4.png">
+<meta property="og:updated_time" content="2018-09-09T07:44:29.547Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="CS61B-3">
-<meta name="twitter:description" content="Lec 3Java: 原始类型(primitive type) 我们的计算机在执行的时候，将数据放在内存中运算。数据被表示成0和1的组合 任意不同的Java类型会以不同的方式来解析bits Java有8种原始类型：byte, short, int, long, float, double, boolean, char 当我们声明了一个类型以后，计算机会给这个类型的变量分配固定比特数的空间。比如in">
-<meta name="twitter:image" content="http://yoursite.com/2018/05/26/CS61B-3/Box_pointer.png">
+<meta name="twitter:title" content="黑板客-ex00">
+<meta name="twitter:description" content="最近在实习，然而做的事情很多都是业务方面的事情，算法方面没什么有价值的东西可写，倒是在项目中要用到爬虫的地方挺多的，所以看了挺久的爬虫也觉得爬虫非常有意思。偶然之间看到黑板客这个东西，是一个通过爬虫来闯关的一个网站，十分有趣，这里会记录第一个练习的过程。 网站页面描述先直接给出网站 http://www.heibanke.com/lesson/crawler_ex00/。 然后能看到网站的页面内容">
+<meta name="twitter:image" content="http://yoursite.com/2018/09/09/黑板客-ex00/1.png">
 
 
 
@@ -122,13 +125,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/05/26/CS61B-3/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/09/09/黑板客-ex00/"/>
 
 
 
 
 
-  <title>CS61B-3 | CJ's Blog</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  <title>黑板客-ex00 | CJ's Blog</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
   
 
 
@@ -245,7 +248,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/26/CS61B-3/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/09/黑板客-ex00/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="CJ">
@@ -262,7 +265,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">CS61B-3</h1>
+          <h1 class="post-title" itemprop="name headline">黑板客-ex00</h1>
         
 
         <div class="post-meta">
@@ -274,8 +277,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-26T20:05:03+08:00">
-                2018-05-26
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-09T15:08:15+08:00">
+                2018-09-09
               </time>
             
 
@@ -292,7 +295,7 @@
 
           
           
-             <span id="/2018/05/26/CS61B-3/" class="leancloud_visitors" data-flag-title="CS61B-3">
+             <span id="/2018/09/09/黑板客-ex00/" class="leancloud_visitors" data-flag-title="黑板客-ex00">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -317,7 +320,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  602
+                  674
                 </span>
               
 
@@ -342,31 +345,24 @@
       
 
       
-        <h2 id="Lec-3"><a href="#Lec-3" class="headerlink" title="Lec 3"></a>Lec 3</h2><h4 id="Java-原始类型-primitive-type"><a href="#Java-原始类型-primitive-type" class="headerlink" title="Java: 原始类型(primitive type)"></a>Java: 原始类型(primitive type)</h4><ul>
-<li>我们的计算机在执行的时候，将数据放在内存中运算。数据被表示成0和1的组合</li>
-<li>任意不同的Java类型会以不同的方式来解析bits</li>
-<li>Java有8种原始类型：byte, short, <strong>int</strong>, long, float, <strong>double</strong>, boolean, char</li>
-<li>当我们声明了一个类型以后，计算机会给这个类型的变量分配固定比特数的空间。比如int类型32bits，double类型64bits。一旦分配了空间以后，在没有释放之前都不允许再使用这个空间</li>
-<li>在原始类型中，当我们使用赋值操作时，是将等号右边的比特复制给等号左边的</li>
+        <p>最近在实习，然而做的事情很多都是业务方面的事情，算法方面没什么有价值的东西可写，倒是在项目中要用到爬虫的地方挺多的，所以看了挺久的爬虫也觉得爬虫非常有意思。偶然之间看到<strong>黑板客</strong>这个东西，是一个通过爬虫来闯关的一个网站，十分有趣，这里会记录第一个练习的过程。</p>
+<h3 id="网站页面描述"><a href="#网站页面描述" class="headerlink" title="网站页面描述"></a>网站页面描述</h3><p>先直接给出网站 <a href="http://www.heibanke.com/lesson/crawler_ex00/" target="_blank" rel="noopener">http://www.heibanke.com/lesson/crawler_ex00/</a>。</p>
+<p>然后能看到网站的页面内容如下：<img src="/2018/09/09/黑板客-ex00/1.png" alt="1"></p>
+<p>看到这里要求我们输入一个数字25338在网址的后面，我们输入一下试试看。</p>
+<p><img src="/2018/09/09/黑板客-ex00/2.png" alt="2"></p>
+<p>然后网站又会让我们在网址后面更改一个数字，那么我们可以大胆猜测一下第一个任务其实就是不停更换网址后面的数字，直到不需要更换为止。那么我们需要分析一下页面，看看我们怎样可以拿到这个数字了。</p>
+<p><img src="/2018/09/09/黑板客-ex00/3.png" alt="3"></p>
+<p>通过浏览器的开发者工具我们可以看到数字是在 <code>class=&#39;col-xs-12...col-lg-6&#39;</code> 的 <code>h3</code> 中，ok那么现在目标很明确：<strong>请求给定的url，拿到页面的内容，再根据数字所处位置拿到那一行文字，最后拿到我们想要的数字形成一个新的url。重复上述步骤直到拿不到数字为止。</strong></p>
+<h3 id="代码部分"><a href="#代码部分" class="headerlink" title="代码部分"></a>代码部分</h3><p>明确好目标后其实代码就很简单了，使用 <strong>urllib2</strong> 来处理网页的请求，使用 <strong>beautifulsoup</strong> 来解析网页直接拿到那一行文字，最后使用 <strong>re</strong> 也就是正则表达式拿到数字。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> urllib2</span><br><span class="line"><span class="keyword">from</span> bs4 <span class="keyword">import</span> BeautifulSoup <span class="keyword">as</span> bs</span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line"></span><br><span class="line">baseUrl = <span class="string">'http://www.heibanke.com/lesson/crawler_ex00/'</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">pipline</span><span class="params">(url)</span>:</span></span><br><span class="line">    response = urllib2.urlopen(baseUrl) <span class="comment"># 请求url</span></span><br><span class="line">    content = response.read() <span class="comment"># 将请求的内容转换成字符串</span></span><br><span class="line">    soup = bs(content, <span class="string">'html.parser'</span>) <span class="comment"># 解析成BeautifulSoup对象</span></span><br><span class="line">    page = soup.find(<span class="string">'h3'</span>) <span class="comment"># 拿到h3位置的内容</span></span><br><span class="line">  	<span class="keyword">try</span> :</span><br><span class="line">    	number = re.search(<span class="string">'\d+'</span>, page.string).group() <span class="comment"># 最后通过正则拿到该数字</span></span><br><span class="line">    <span class="keyword">except</span> :</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    <span class="keyword">return</span> number</span><br><span class="line"></span><br><span class="line">number = pipline(baseUrl)</span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span> number:</span><br><span class="line">    tmpUrl = baseUrl + number</span><br><span class="line">    number = pipline(tmpUrl)</span><br><span class="line">    <span class="keyword">if</span> number:</span><br><span class="line">    	<span class="keyword">print</span> number</span><br><span class="line">    </span><br><span class="line"><span class="keyword">print</span> <span class="string">'finished~'</span></span><br></pre></td></tr></table></figure>
+<p>这里需要注意一下：</p>
+<ul>
+<li>上面的 <strong>page</strong> 变量是一个BeautifulSoup对象，所以需要通过 <strong>page.string</strong> 转换成字符串。 </li>
+<li>正则中的 <strong>search</strong> 函数返回的是一个生成器，可以通过 <strong>group</strong> 方法来拿到所需要的元素。</li>
 </ul>
-<h4 id="Java-引用类型-reference-type"><a href="#Java-引用类型-reference-type" class="headerlink" title="Java: 引用类型(reference type)"></a>Java: 引用类型(reference type)</h4><ul>
-<li>除了上面提到的八种类型以外，其余类型都是引用类型。包括array</li>
-<li>当我们实例化一个对象的时候：<ul>
-<li>Java首先给所有提前定义好的成员变量分配好空间，并且使用一些系统初始值对这些空间进行填充</li>
-<li>然后通过构造函数给成员变量赋特定的值</li>
-</ul>
-</li>
-<li>声明任意一个引用类型变量的时候，Java会为该变量分配一个<strong>64位</strong>的地址。</li>
-</ul>
-<h4 id="Java-Array的实例化"><a href="#Java-Array的实例化" class="headerlink" title="Java: Array的实例化"></a>Java: Array的实例化</h4><ul>
-<li>声明(declaration)：给这个Array分配一个64位地址</li>
-<li>实例化(instantiation)：创建一个对象</li>
-<li>赋值(assignment)：将这个地址指向新的对象，然后我们通过这个地址就可以访问这个对象了</li>
-</ul>
-<h4 id="Review"><a href="#Review" class="headerlink" title="Review:"></a>Review:</h4><h5 id="Box-and-Poiter-Diagram"><a href="#Box-and-Poiter-Diagram" class="headerlink" title="Box and Poiter Diagram"></a>Box and Poiter Diagram</h5><p><img src="/2018/05/26/CS61B-3/Box_pointer.png" alt="Box_pointer"></p>
-<h5 id="Static"><a href="#Static" class="headerlink" title="Static"></a>Static</h5><p>当我们希望类内的某个成员变量是为整个类服务，不是为某个对象服务的时候，我们就使用静态成员变量。静态成员可以直接使用类名来获得。当某个对象对这个类的静态成员变量的值进行修改的时候，其他对象获取的这个静态成员变量的值也会被修改。</p>
-<h4 id="Code-Example"><a href="#Code-Example" class="headerlink" title="Code Example:"></a>Code Example:</h4><p>体会迭代和递归的区别，下面是两种对一个链表每个元素做平方的方法。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">IntList</span> </span>&#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">int</span> first;</span><br><span class="line">	<span class="keyword">public</span> IntList rest;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> IntList <span class="title">square</span><span class="params">(IntList L)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (L == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> L;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            IntList rest = square(L.rest);</span><br><span class="line">            IntList M = <span class="keyword">new</span> IntList(L.first * L.first, rest);</span><br><span class="line">            <span class="keyword">return</span> M;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> IntList <span class="title">squareMutative</span><span class="params">(IntList L)</span> </span>&#123;</span><br><span class="line">        IntList M = L;</span><br><span class="line">        <span class="keyword">while</span> (M != <span class="keyword">null</span>) &#123;</span><br><span class="line">            M.first = M.first * M.first;</span><br><span class="line">            M = M.rest;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> L;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h3><p>该程序最后打印的数字是 73999 ，我们把这个数字放在网址后面看看结果。</p>
+<p><img src="/2018/09/09/黑板客-ex00/4.png" alt="4"></p>
+<p>这样我们就闯关成功啦~</p>
 
       
     </div>
@@ -384,7 +380,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Data-Structure/" rel="tag"># Data Structure</a>
+            <a href="/tags/爬虫/" rel="tag"># 爬虫</a>
           
         </div>
       
@@ -397,8 +393,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/05/25/CS61B-2/" rel="next" title="CS61B-2">
-                <i class="fa fa-chevron-left"></i> CS61B-2
+              <a href="/2018/07/30/ML系列-3/" rel="next" title="ML系列-3">
+                <i class="fa fa-chevron-left"></i> ML系列-3
               </a>
             
           </div>
@@ -406,10 +402,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/05/27/Vim-使用入门/" rel="prev" title="Vim 使用入门">
-                Vim 使用入门 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -536,7 +528,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Lec-3"><span class="nav-number">1.</span> <span class="nav-text">Lec 3</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Java-原始类型-primitive-type"><span class="nav-number">1.0.1.</span> <span class="nav-text">Java: 原始类型(primitive type)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Java-引用类型-reference-type"><span class="nav-number">1.0.2.</span> <span class="nav-text">Java: 引用类型(reference type)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Java-Array的实例化"><span class="nav-number">1.0.3.</span> <span class="nav-text">Java: Array的实例化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Review"><span class="nav-number">1.0.4.</span> <span class="nav-text">Review:</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Box-and-Poiter-Diagram"><span class="nav-number">1.0.4.1.</span> <span class="nav-text">Box and Poiter Diagram</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Static"><span class="nav-number">1.0.4.2.</span> <span class="nav-text">Static</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Code-Example"><span class="nav-number">1.0.5.</span> <span class="nav-text">Code Example:</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#网站页面描述"><span class="nav-number">1.</span> <span class="nav-text">网站页面描述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代码部分"><span class="nav-number">2.</span> <span class="nav-text">代码部分</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#结果"><span class="nav-number">3.</span> <span class="nav-text">结果</span></a></li></ol></div>
             
 
           </div>
