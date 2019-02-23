@@ -82,15 +82,15 @@
 <meta name="description" content="pytorch LSTM实践 LSTM简介最近开始做毕设，需要使用到序列化的模型。其中LSTM就是有名且实用的模型，这一篇不会细讲LSTM的内部结构，单纯讲讲在使用pytorch框架的时候如何搭建一个LSTM模型。 首先看看LSTM的结构图： 按照单个时间步来说，主要的向量有LSTM输入向量x、LSTM输出向量h、结果向量y、原始输入向量t。其中向量t和x的关系为：t其实是字或者是词的one-ho">
 <meta name="keywords" content="机器学习">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Pytorch-LSTM实践">
+<meta property="og:title" content="Pytorch LSTM实践">
 <meta property="og:url" content="http://yoursite.com/2019/02/23/Pytorch-LSTM实践/index.html">
 <meta property="og:site_name" content="CJ&#39;s Blog">
 <meta property="og:description" content="pytorch LSTM实践 LSTM简介最近开始做毕设，需要使用到序列化的模型。其中LSTM就是有名且实用的模型，这一篇不会细讲LSTM的内部结构，单纯讲讲在使用pytorch框架的时候如何搭建一个LSTM模型。 首先看看LSTM的结构图： 按照单个时间步来说，主要的向量有LSTM输入向量x、LSTM输出向量h、结果向量y、原始输入向量t。其中向量t和x的关系为：t其实是字或者是词的one-ho">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://colah.github.io/posts/2015-08-Understanding-LSTMs/img/LSTM3-chain.png">
-<meta property="og:updated_time" content="2019-02-23T15:52:57.795Z">
+<meta property="og:updated_time" content="2019-02-23T15:56:52.855Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Pytorch-LSTM实践">
+<meta name="twitter:title" content="Pytorch LSTM实践">
 <meta name="twitter:description" content="pytorch LSTM实践 LSTM简介最近开始做毕设，需要使用到序列化的模型。其中LSTM就是有名且实用的模型，这一篇不会细讲LSTM的内部结构，单纯讲讲在使用pytorch框架的时候如何搭建一个LSTM模型。 首先看看LSTM的结构图： 按照单个时间步来说，主要的向量有LSTM输入向量x、LSTM输出向量h、结果向量y、原始输入向量t。其中向量t和x的关系为：t其实是字或者是词的one-ho">
 <meta name="twitter:image" content="http://colah.github.io/posts/2015-08-Understanding-LSTMs/img/LSTM3-chain.png">
 
@@ -128,7 +128,7 @@
 
 
 
-  <title>Pytorch-LSTM实践 | CJ's Blog</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  <title>Pytorch LSTM实践 | CJ's Blog</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
   
 
 
@@ -262,7 +262,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Pytorch-LSTM实践</h1>
+          <h1 class="post-title" itemprop="name headline">Pytorch LSTM实践</h1>
         
 
         <div class="post-meta">
@@ -274,7 +274,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-23T11:52:07+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-23T23:55:25+08:00">
                 2019-02-23
               </time>
             
@@ -292,7 +292,7 @@
 
           
           
-             <span id="/2019/02/23/Pytorch-LSTM实践/" class="leancloud_visitors" data-flag-title="Pytorch-LSTM实践">
+             <span id="/2019/02/23/Pytorch-LSTM实践/" class="leancloud_visitors" data-flag-title="Pytorch LSTM实践">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -317,7 +317,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1,118
+                  1,126
                 </span>
               
 
@@ -349,9 +349,9 @@
 </li>
 <li><h4 id="pytorch-LSTM实践-1"><a href="#pytorch-LSTM实践-1" class="headerlink" title="pytorch LSTM实践"></a>pytorch LSTM实践</h4><p>首先看需要用到的包</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch <span class="comment"># 主包</span></span><br><span class="line"><span class="keyword">import</span> torch.nn <span class="keyword">as</span> nn <span class="comment"># 包含各个子cell</span></span><br><span class="line"><span class="keyword">import</span> torch.nn.functional <span class="keyword">as</span> F <span class="comment"># 包含各种激活函数</span></span><br><span class="line"><span class="keyword">import</span> torch.optim <span class="keyword">as</span> opt <span class="comment"># 包含各种激活函数</span></span><br></pre></td></tr></table></figure>
-<p>在pytorch中，我们要实现一个模型，就要定义对应的类，并且该类需要继承$nn.Module$，然后重写其中的$__init__()$以及$forward()$函数。</p>
+<p>在pytorch中，我们要实现一个模型，就要定义对应的类，并且该类需要继承$nn.Module$，然后重写其中的<code>\_\_init\_\_()</code>以及$forward()$函数。</p>
 <ul>
-<li>$__init__()$</li>
+<li><code>\_\_init\_\_()</code></li>
 </ul>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">LSTMTagger</span><span class="params">(nn.Module)</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, embedding_dim, hidden_dim, vocab_size, tagset_size)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        embedding_dim : x向量维度</span></span><br><span class="line"><span class="string">        hidden_dim    : h向量维度</span></span><br><span class="line"><span class="string">        vocab_size    : t向量维度</span></span><br><span class="line"><span class="string">        tagser_size   : y向量维度</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        super(LSTMTagger, self).__init__()</span><br><span class="line">        self.hidden_dim = hidden_dim</span><br><span class="line"></span><br><span class="line">        self.word_embeddings = nn.Embedding(vocab_size, embedding_dim) </span><br><span class="line">        self.lstm = nn.LSTM(embedding_dim, hidden_dim)</span><br><span class="line">        self.hidden2tag = nn.Linear(hidden_dim, tagset_size)</span><br><span class="line">        self.hidden = self.init_hidden()</span><br></pre></td></tr></table></figure>
 <p>a. 在简介已经提到过，t向量要通过embedding才能转换成x向量，因此定义了一个embedding层。在pytorch中是通过$nn.Embedding()$来定义的，其中两个传参的意义如下：</p>
@@ -365,9 +365,9 @@
 <li>hidden_size: The number of features in the hidden state <code>h</code></li>
 </ul>
 <p>c. 得到h向量以后，还要通过一个线性变换转换成y向量，这一步的目的是要得到一个维度和输出需求相对应的向量。线性变换通过$nn.Linear()$来实现，两个传参分别是输入向量以及输出向量的维度。</p>
-<p>d. 除了定义几个向量变化操作之外，LSTM需要我们为h向量定义一个初始状态，所以这里另外通过一个$init_hidden()$函数来定义。</p>
+<p>d. 除了定义几个向量变化操作之外，LSTM需要我们为h向量定义一个初始状态，所以这里另外通过一个<code>init\_hidden()</code>函数来定义。</p>
 <ul>
-<li>$init_hidden()$</li>
+<li><code>init\_hidden()</code></li>
 </ul>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">init_hidden</span><span class="params">(self)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> (torch.zeros(<span class="number">1</span>, <span class="number">1</span>, self.hidden_dim),</span><br><span class="line">            torch.zeros(<span class="number">1</span>, <span class="number">1</span>, self.hidden_dim))</span><br></pre></td></tr></table></figure>
 <p>看到这个代码的时候，我们会疑惑为什么会有返回两个向量。其实LSTM之中不仅定义了一个隐藏向量h，还定义了一个cell向量c，所以初始化的时候我们需要初始化两个向量。这两个向量的维度需要保持一致，所以只需要传入一个$hidden_dim$。</p>
